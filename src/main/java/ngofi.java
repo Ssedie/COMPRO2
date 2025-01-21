@@ -45,6 +45,5 @@ public class ngofi {
             System.out.println("Enter quantity: ");
             int quantity = info.nextInt();
         }
-
     }
 }
