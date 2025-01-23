@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -30,7 +31,14 @@ public class ngofi {
 
         while (true) {
             System.out.print(menu);
-            int coffeeChoice = info.nextInt();
+            int coffeeChoice = 0;
+            try {
+                coffeeChoice = info.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.print(menu);
+                info.nextLine();
+                coffeeChoice = info.nextInt();
+            }
 
 
             if(coffeeChoice == 0){
