@@ -1,9 +1,7 @@
 ~~~~~~~~~~~ Receipt ~~~~~~~~~~~
-3 x Latte @ 70.00 each = 210.00
-4 x Cappuccino @ 65.00 each = 260.00
-2 x Mocha @ 80.00 each = 160.00
+4 x Latte @ 70.00 each = 280.00
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Subtotal: 630.00
-VAT (12%): 75.60
-Grand Total: 705.60
+Subtotal: 280.00
+VAT (12%): 33.60
+Grand Total: 313.60
 -------------------------------

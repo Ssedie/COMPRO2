@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class ngofi {
+public class Ngofi {
 
 
     static String[] coffeeName = {"Espresso", "Latte", "Cappuccino", "Mocha"};
@@ -26,7 +26,7 @@ public class ngofi {
                    """);
 
 
-        int[] quantities = new int[coffeeName.length];
+        int[] quantities = new int[100];
 
 
         while (true) {
@@ -83,7 +83,6 @@ public class ngofi {
         System.out.println("Receipt saved to CoffeeReceipt.txt");
     }
 
-
     public static void receipt(String[] name,double[] price, int [] quantities){
         String header = String.format("""
                ~~~~~~~~~~~ Receipt ~~~~~~~~~~~
@@ -97,7 +96,7 @@ public class ngofi {
                 System.out.printf("%d x %s @ %.2f each = %.2f\n", quantities[i], name[i], price[i], quantities[i] * price[i]);
             }
         }
-        System.out.println(divider);
+        System.out.print(divider);
     }
     public static void saveReceipt(int[] quantities, double subtotal, double vat, double grandTotal) {
         try (FileWriter writer = new FileWriter("CoffeeReceipt.txt")) {
