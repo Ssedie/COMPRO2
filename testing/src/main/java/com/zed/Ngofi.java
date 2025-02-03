@@ -75,15 +75,13 @@ public class Ngofi {
 
 
         for (int i = 0; i < coffees.length; i++) {
-            for(int j = 0; j < 2;j++) {
-                subtotal += quantities[i] * Double.parseDouble(coffees[i][j]);
-            }
+            subtotal += quantities[i] * Double.parseDouble(coffees[i][1]);
         }
 
         double vat = subtotal * 0.12;
         double grandTotal = subtotal + vat;
 
-        receipt(coffees, quantities, subtotal, vat, grandTotal);
+        receipt(quantities, subtotal, vat, grandTotal);
 
         saveReceipt(quantities, subtotal, vat, grandTotal);
 
@@ -92,15 +90,7 @@ public class Ngofi {
     }
 
 
-    /**
-     *
-     * @param coffee
-     * @param quantities
-     * @param subtotal
-     * @param vat
-     * @param grandTotal
-     */
-    public static void receipt(String[][] coffee, int [] quantities, double subtotal, double vat, double grandTotal ){
+    public static void receipt(int [] quantities, double subtotal, double vat, double grandTotal ){
         String header = String.format("""
                ~~~~~~~~~~~ Receipt ~~~~~~~~~~~
                """);
@@ -110,7 +100,8 @@ public class Ngofi {
         System.out.print(header);
         for (int i = 0; i < coffees.length; i++) {
             if (quantities[i] > 0) {
-                System.out.printf("%d x %s @ %.2f each = %.2f\n", quantities[i], coffee[i], coffee[i][i] , quantities[i] * Double.parseDouble(coffee[i][i]));
+                double price = Double.parseDouble(coffees[i][1]);
+                System.out.printf("%d x %s @ %.2f each = %.2f\n", quantities[i], coffees[i][0], price , quantities[i] * price);
             }
         }
         System.out.print(divider);
@@ -133,7 +124,8 @@ public class Ngofi {
             writer.write("~~~~~~~~~~~ Receipt ~~~~~~~~~~~\n");
             for (int i = 0; i < coffees.length; i++) {
                 if (quantities[i] > 0) {
-                    writer.write(String.format("%d x %s @ %.2f each = %.2f\n", quantities[i], coffees[i], Double.parseDouble(coffees[i][i]), quantities[i] * Double.parseDouble(coffees[i][i])));
+                    double price = Double.parseDouble(coffees[i][1]);
+                    writer.write(String.format("%d x %s @ %.2f each = %.2f\n", quantities[i], coffees[i][0], price , quantities[i] * price));
                 }
             }
             writer.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
