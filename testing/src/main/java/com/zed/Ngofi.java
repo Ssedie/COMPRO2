@@ -1,3 +1,7 @@
+package com.zed;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -7,8 +11,11 @@ import java.util.Scanner;
 public class Ngofi {
 
 
-    static String[] coffeeName = {"Espresso", "Latte", "Cappuccino", "Mocha"};
-    static double[] price = {50.0, 70.0, 65.0, 80.0};
+    static String[][] coffees =
+            {{"Espresso", "50.0"},
+            {"Latte", "70.0"},
+            {"Cappuccino", "65.0"},
+            {"Mocha","80.0"}};
 
 
     public static void main(String[] args) {
@@ -28,6 +35,10 @@ public class Ngofi {
 
         int[] quantities = new int[100];
 
+        System.out.println(coffees.length);
+
+        double subtotal = 0;
+
         while (true) {
             System.out.print(menu);
             int coffeeChoice = 0;
@@ -42,7 +53,7 @@ public class Ngofi {
 
             if(coffeeChoice == 0){
                 break;
-            } else if (coffeeChoice < 1 || coffeeChoice > coffeeName.length) {
+            } else if (coffeeChoice < 1 || coffeeChoice > coffees.length) {
                 System.out.println("Invalid input. Please try again");
                 System.out.print(menu);
                 info.nextInt();
@@ -62,14 +73,17 @@ public class Ngofi {
         }
 
 
-        double subtotal = 0;
-        for (int i = 0; i < coffeeName.length; i++) {
-            subtotal += quantities[i] * price[i];
+
+        for (int i = 0; i < coffees.length; i++) {
+            for(int j = 0; j < 2;j++) {
+                subtotal += quantities[i] * Double.parseDouble(coffees[i][j]);
+            }
         }
+
         double vat = subtotal * 0.12;
         double grandTotal = subtotal + vat;
-        
-        receipt(coffeeName, price, quantities, subtotal, vat, grandTotal);
+
+        receipt(coffees, quantities, subtotal, vat, grandTotal);
 
         saveReceipt(quantities, subtotal, vat, grandTotal);
 
@@ -77,14 +91,16 @@ public class Ngofi {
         System.out.println("Receipt saved to CoffeeReceipt.txt");
     }
 
+
     /**
-     * Used to print the receipt after purchasing
      *
-     * @param name
-     * @param price
+     * @param coffee
      * @param quantities
+     * @param subtotal
+     * @param vat
+     * @param grandTotal
      */
-    public static void receipt(String[] name,double[] price, int [] quantities, double subtotal, double vat, double grandTotal ){
+    public static void receipt(String[][] coffee, int [] quantities, double subtotal, double vat, double grandTotal ){
         String header = String.format("""
                ~~~~~~~~~~~ Receipt ~~~~~~~~~~~
                """);
@@ -92,9 +108,9 @@ public class Ngofi {
                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                """);
         System.out.print(header);
-        for (int i = 0; i < coffeeName.length; i++) {
+        for (int i = 0; i < coffees.length; i++) {
             if (quantities[i] > 0) {
-                System.out.printf("%d x %s @ %.2f each = %.2f\n", quantities[i], name[i], price[i], quantities[i] * price[i]);
+                System.out.printf("%d x %s @ %.2f each = %.2f\n", quantities[i], coffee[i], coffee[i][i] , quantities[i] * Double.parseDouble(coffee[i][i]));
             }
         }
         System.out.print(divider);
@@ -115,9 +131,9 @@ public class Ngofi {
     public static void saveReceipt(int[] quantities, double subtotal, double vat, double grandTotal) {
         try (FileWriter writer = new FileWriter("CoffeeReceipt.txt")) {
             writer.write("~~~~~~~~~~~ Receipt ~~~~~~~~~~~\n");
-            for (int i = 0; i < coffeeName.length; i++) {
+            for (int i = 0; i < coffees.length; i++) {
                 if (quantities[i] > 0) {
-                    writer.write(String.format("%d x %s @ %.2f each = %.2f\n", quantities[i], coffeeName[i], price[i], quantities[i] * price[i]));
+                    writer.write(String.format("%d x %s @ %.2f each = %.2f\n", quantities[i], coffees[i], Double.parseDouble(coffees[i][i]), quantities[i] * Double.parseDouble(coffees[i][i])));
                 }
             }
             writer.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
@@ -130,4 +146,3 @@ public class Ngofi {
         }
     }
 }
-
