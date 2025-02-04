@@ -2,50 +2,58 @@ import java.util.Scanner;
 
 public class Coffee {
 
-    String[] name = {"Espresso", "Latte"};
-    String[] type = {"Arabica", "Robusta"};
-    String[] size = {"Small", "Medium", "Large"};
-    double[] price = {45.50, 60.75, 80.50};
-    String[] roastLevel = {"Light", "Medium", "Dark"};
+    String name;
+    String type;
+    String size;
+    double price;
+    String roastLevel;
     String origin;
-    String[] flavorNotes = {"Chocolate", "Citrus", "Nutty"};
-    String[] brewMethod = {"Drip", "French Press", "Espresso"};
+    String[] flavorNotes;
+    int flavorNoteCount;
+    String brewMethod;
     boolean isDecaf;
-    boolean stock;
+    int stock;
 
-    void choice() {
-        Scanner pili = new Scanner(System.in);
-        String order = "";
-        String typeOrder = "";
-        String sizeOrder;
-        double total = 0;
 
-        for (int i = 0; i < name.length;i++){
-            System.out.println(name[i] + " ");
-            order = pili.nextLine();
+    public Coffee(String name, String type, String size, double price, String roastLevel, String origin,
+                boolean isDecaf, int stock, String brewMethod) {
+        this.name = name;
+        this.type = type;
+        this.size = size;
+        this.price = price;
+        this.roastLevel = roastLevel;
+        this.origin = origin;
+        this.isDecaf = isDecaf;
+        this.stock = stock;
+        this.brewMethod = brewMethod;
+        this.flavorNotes = new String[5];
+        this.flavorNoteCount = 0;
+    }
+
+
+    double calculatePrize(String size){
+        double adjustPrice = 0;
+        switch(size){
+            case "Small":
+                adjustPrice = 1.0;
+                break;
+            case "Medium":
+                adjustPrice = 1.3;
+                break;
+            case "Large":
+                adjustPrice = 1.5;
+                break;
+            default:
+                adjustPrice = 1.0;
         }
 
-        for (int i = 0; i < type.length;i++){
-            System.out.println(type[i] + " ");
-            typeOrder = pili.nextLine();
+        return this.price * adjustPrice;
+    }
+
+    void addFlavor(String flavor){
+        if (flavorNoteCount < flavorNotes.length){
+            flavorNotes[flavorNoteCount] = flavor;
+            flavorNoteCount++;
         }
-
-        for (int i = 0; i < size.length;i++){
-            System.out.println(size[i] + " ");
-            sizeOrder = pili.nextLine();
-
-            if (sizeOrder == "Small") {
-                total += price[0];
-            } else if (sizeOrder == "Medium") {
-                total += price[1];
-            } else if (sizeOrder == "Large"){
-                total += price[2];
-            } else{
-                System.out.println("Invalid input");
-                sizeOrder = pili.nextLine();
-            }
-        }
-
-
     }
 }
