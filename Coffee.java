@@ -15,8 +15,8 @@ public class Coffee {
 
     void choice() {
         Scanner pili = new Scanner(System.in);
-        String order;
-        String typeOrder;
+        String order = "";
+        String typeOrder = "";
         String sizeOrder;
         double total = 0;
 
@@ -36,7 +36,16 @@ public class Coffee {
 
             if (sizeOrder == "Small") {
                 total += price[0];
+            } else if (sizeOrder == "Medium") {
+                total += price[1];
+            } else if (sizeOrder == "Large"){
+                total += price[2];
+            } else{
+                System.out.println("Invalid input");
+                sizeOrder = pili.nextLine();
             }
         }
+
+
     }
 }
