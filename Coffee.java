@@ -56,4 +56,102 @@ public class Coffee {
             flavorNoteCount++;
         }
     }
+
+    void setFlavorNotes(String[] flavorNotes) {
+        this.flavorNotes = flavorNotes;
+    }
+
+    String getBrewMethod() {
+        return brewMethod;
+    }
+
+    void setBrewMethod(String brewMethod) {
+        this.brewMethod = brewMethod;
+    }
+
+    boolean checkStock() {
+        return stock > 0;
+    }
+
+    void updateStock(int quantity){
+        this.stock = quantity;
+    }
+
+    void changeRoastLevel(String newRoastLevel) {
+        this.roastLevel = newRoastLevel;
+    }
+
+    double getPrice() {
+        return price;
+    }
+
+    void setPrice(double price) {
+        this.price = price;
+    }
+
+    String getRoastLevel() {
+        return roastLevel;
+    }
+
+    void setRoastLevel(String roastLevel) {
+        this.roastLevel = roastLevel;
+    }
+
+    String getOrigin() {
+        return origin;
+    }
+
+    void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    boolean isDecaf() {
+        return isDecaf;
+    }
+
+    void setDecaf(boolean isDecaf){
+        this.isDecaf = isDecaf;
+    }
+
+    int getStock() {
+        return stock;
+    }
+
+    void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    void updateStock(int quantity){
+        this.stock = quantity;
+    }
+
+    void discount(double percent){
+        this.price -= this.price * (percent/100);
+    }
+
+    String getName(){
+        return name;
+    }
+
+    void setName(String name){
+        this.name = name;
+    }
+
+    String getType(){
+        return type;
+    }
+
+    void setType(String type){
+        this.type = type;
+    }
+
+    String getSize() {
+        return size;
+    }
+
+    void setSize(String size) {
+        this.size = size;
+    }
+
+
 }
