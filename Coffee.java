@@ -89,7 +89,7 @@ public class Coffee {
                 }
             }
         }
-        return String.format("A %s roast coffee from %s with flavor notes of %s brewed using %s.",
+        return String.format("A %s roast coffee from %s with flavor notes of %s brewed using %s method.",
                 roastLevel, origin, flavorDescription.toString(), brewMethod);
     }
 
