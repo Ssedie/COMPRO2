@@ -165,19 +165,4 @@ public class Coffee {
     void setSize(String size) {
         this.size = size;
     }
-
-    public static void main(String[] args) {
-        Coffee o1 = new Coffee("Bulgarian", "Espresso", "small", 75.50, "light", "Philippine Islands", false, 3, "Trickle");
-
-        o1.addFlavor("Strawberry");
-        o1.calculatePrize("small");
-        o1.discount(10);
-        o1.updateStock(5);
-        System.out.println(o1.getName() + " " + o1.getType() + " " + o1.getSize());
-        System.out.println(o1.explain());
-        System.out.println("The total price for the coffee is: € " + o1.getPrice());
-
-    }
-
-
 }
