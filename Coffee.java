@@ -31,23 +31,23 @@ public class Coffee {
     }
 
 
-    double calculatePrize(String size){
-        double adjustPrice = 0;
-        switch(size){
-            case "Small":
-                adjustPrice = 1.0;
+    public double calculatePrize(String size){
+        double defaultPrice = 0;
+        switch(size.toLowerCase()){
+            case "small":
+                defaultPrice = 1.01;
                 break;
-            case "Medium":
-                adjustPrice = 1.3;
+            case "medium":
+                defaultPrice = 1.25;
                 break;
-            case "Large":
-                adjustPrice = 1.5;
+            case "large":
+                defaultPrice = 1.5;
                 break;
             default:
-                adjustPrice = 1.0;
+                defaultPrice = 1.0;
         }
 
-        return this.price * adjustPrice;
+        return this.price * defaultPrice;
     }
 
     void addFlavor(String flavor){
@@ -61,7 +61,7 @@ public class Coffee {
         this.flavorNotes = flavorNotes;
     }
 
-    String getBrewMethod() {
+    public String getBrewMethod() {
         return brewMethod;
     }
 
@@ -69,7 +69,7 @@ public class Coffee {
         this.brewMethod = brewMethod;
     }
 
-    boolean checkStock() {
+    public boolean checkStock() {
         return stock > 0;
     }
 
@@ -77,11 +77,27 @@ public class Coffee {
         this.stock = quantity;
     }
 
+    public String explain() {
+        StringBuilder flavorDescription = new StringBuilder();
+        if (flavorNoteCount == 0) {
+            flavorDescription.append("No flavor notes");
+        } else {
+            for (int i = 0; i < flavorNoteCount; i++) {
+                flavorDescription.append(flavorNotes[i]);
+                if (i < flavorNoteCount - 1) {
+                    flavorDescription.append(", ");
+                }
+            }
+        }
+        return String.format("A %s roast coffee from %s with flavor notes of %s brewed using %s.",
+                roastLevel, origin, flavorDescription.toString(), brewMethod);
+    }
+
     void changeRoastLevel(String newRoastLevel) {
         this.roastLevel = newRoastLevel;
     }
 
-    double getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -89,7 +105,7 @@ public class Coffee {
         this.price = price;
     }
 
-    String getRoastLevel() {
+    public String getRoastLevel() {
         return roastLevel;
     }
 
@@ -97,7 +113,7 @@ public class Coffee {
         this.roastLevel = roastLevel;
     }
 
-    String getOrigin() {
+    public String getOrigin() {
         return origin;
     }
 
@@ -105,7 +121,7 @@ public class Coffee {
         this.origin = origin;
     }
 
-    boolean isDecaf() {
+    public boolean isDecaf() {
         return isDecaf;
     }
 
@@ -113,7 +129,7 @@ public class Coffee {
         this.isDecaf = isDecaf;
     }
 
-    int getStock() {
+    public int getStock() {
         return stock;
     }
 
@@ -121,15 +137,12 @@ public class Coffee {
         this.stock = stock;
     }
 
-    void updateStock(int quantity){
-        this.stock = quantity;
-    }
 
     void discount(double percent){
         this.price -= this.price * (percent/100);
     }
 
-    String getName(){
+    public String getName(){
         return name;
     }
 
@@ -137,7 +150,7 @@ public class Coffee {
         this.name = name;
     }
 
-    String getType(){
+    public String getType(){
         return type;
     }
 
@@ -145,12 +158,25 @@ public class Coffee {
         this.type = type;
     }
 
-    String getSize() {
+    public String getSize() {
         return size;
     }
 
     void setSize(String size) {
         this.size = size;
+    }
+
+    public static void main(String[] args) {
+        Coffee o1 = new Coffee("Bulgarian", "Espresso", "small", 75.50, "light", "Philippine Islands", false, 3, "Trickle");
+
+        o1.addFlavor("Strawberry");
+        o1.calculatePrize("small");
+        o1.discount(10);
+        o1.updateStock(5);
+        System.out.println(o1.getName() + " " + o1.getType() + " " + o1.getSize());
+        System.out.println(o1.explain());
+        System.out.println("The total price for the coffee is: € " + o1.getPrice());
+
     }
 
 
