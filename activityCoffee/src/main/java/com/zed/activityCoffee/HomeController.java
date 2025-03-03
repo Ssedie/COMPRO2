@@ -26,13 +26,16 @@ public class HomeController {
 		coffeeList.add(new Coffee(3, "Cappuccino", "Robusta", "Large", 5.00, "Medium", "Colombia", false, 12, Arrays.asList("Fruity", "Bold"), "French Press"));
 		coffeeList.add(new Coffee(4, "Mocha", "Arabica", "Medium", 4.75, "Dark", "Guatemala", false, 6, Arrays.asList("Chocolate", "Smooth"), "Espresso"));
 		coffeeList.add(new Coffee(5, "Americano", "Robusta", "Large", 3.25, "Light", "Kenya", false, 15, Arrays.asList("Citrus", "Balanced"), "Drip"));
+		coffeeList.add(new Coffee(6,"Caramel", "Frappe", "Large", 4.25, "Light", "Pilipins", false, 10, Arrays.asList("Strawberry", "Coarse"), "Trickle"));
 	}
+
 
 	@GetMapping("/")
 	public String getCoffees(Model model){
 		model.addAttribute("coffees", coffeeList);
 		return "index";
 	}
+
 
 	@GetMapping("/delete")
 	public String deleteCoffee(@RequestParam int id){
