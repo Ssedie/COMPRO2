@@ -98,12 +98,11 @@ public class HomeController {
 						 @RequestParam String origin,
 						 @RequestParam boolean isDecaf,
 						 @RequestParam int stock,
-						 @RequestParam List<String> flavorNotes,
+						 @RequestParam String flavorNotes,  // Receive as a single string
 						 @RequestParam String brewMethod) {
 
 		for (Coffee coffee : coffeeList) {
 			if (coffee.getId() == id) {
-				// Update coffee properties
 				coffee.setName(name);
 				coffee.setType(type);
 				coffee.setSize(size);
@@ -112,13 +111,11 @@ public class HomeController {
 				coffee.setOrigin(origin);
 				coffee.setDecaf(isDecaf);
 				coffee.setStock(stock);
-				coffee.setFlavorNotes(flavorNotes);
+				coffee.setFlavorNotes(Arrays.asList(flavorNotes.split(", "))); // Convert string to list
 				coffee.setBrewMethod(brewMethod);
 				break;
 			}
 		}
-
 		return "redirect:/";
 	}
-
 }
