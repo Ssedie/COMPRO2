@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -42,4 +43,82 @@ public class HomeController {
 		coffeeList.removeIf(coffee -> coffee.getId() == id);
 		return "redirect:/";
 	}
+
+	@GetMapping("/add")
+	public String add(){
+		return "new";
+	}
+
+	@PostMapping("/save")
+	public String save(@RequestParam String name,
+					   @RequestParam String type,
+					   @RequestParam String size,
+					   @RequestParam double price,
+					   @RequestParam String roastLevel,
+					   @RequestParam String origin,
+					   @RequestParam boolean isDecaf,
+					   @RequestParam int stock,
+					   @RequestParam List<String> flavorNotes,
+					   @RequestParam String brewMethod){
+		Coffee c = new Coffee();
+		c.setId(coffeeList.size() + 1);
+		c.setName(name);
+		c.setType(type);
+		c.setSize(size);
+		c.setPrice(price);
+		c.setRoastLevel(roastLevel);
+		c.setOrigin(origin);
+		c.setDecaf(isDecaf);
+		c.setStock(stock);
+		c.setFlavorNotes(flavorNotes);
+		c.setBrewMethod(brewMethod);
+		//add new student to the array list
+		coffeeList.add(c);
+		return "redirect:/";
+	}
+
+	@GetMapping("/edit")
+	public String edit(@RequestParam int id, Model model) {
+		for (Coffee coffee : coffeeList) {
+			if (coffee.getId() == id) {
+				model.addAttribute("coffee", coffee);
+				return "edit";
+			}
+		}
+		return "redirect:/";
+	}
+
+	@PostMapping("/update")
+	public String update(@RequestParam int id,
+						 @RequestParam String name,
+						 @RequestParam String type,
+						 @RequestParam String size,
+						 @RequestParam double price,
+						 @RequestParam String roastLevel,
+						 @RequestParam String origin,
+						 @RequestParam boolean isDecaf,
+						 @RequestParam int stock,
+						 @RequestParam List<String> flavorNotes,
+						 @RequestParam String brewMethod) {
+
+		for (Coffee coffee : coffeeList) {
+			if (coffee.getId() == id) {
+				// Update coffee properties
+				coffee.setName(name);
+				coffee.setType(type);
+				coffee.setSize(size);
+				coffee.setPrice(price);
+				coffee.setRoastLevel(roastLevel);
+				coffee.setOrigin(origin);
+				coffee.setDecaf(isDecaf);
+				coffee.setStock(stock);
+				coffee.setFlavorNotes(flavorNotes);
+				coffee.setBrewMethod(brewMethod);
+				break;
+			}
+		}
+
+		return "redirect:/";
+	}
+
 }
