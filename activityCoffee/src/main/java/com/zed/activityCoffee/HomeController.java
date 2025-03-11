@@ -30,25 +30,51 @@ public class HomeController {
 		coffeeList.add(new Coffee(6,"Caramel", "Frappe", "Large", 4.25, "Light", "Pilipins", false, 10, Arrays.asList("Strawberry", "Coarse"), "Trickle"));
 	}
 
-
+	/**
+	 *
+	 * @param model - used in displaying the list of coffees
+	 * @return - shows the main page where the coffee is listed
+	 */
 	@GetMapping("/")
 	public String getCoffees(Model model){
 		model.addAttribute("coffees", coffeeList);
 		return "index";
 	}
 
-
+	/**
+	 *
+	 * @param id - (int) id of the coffee
+	 * @return - deletes the coffee that is listed
+	 */
 	@GetMapping("/delete")
 	public String deleteCoffee(@RequestParam int id){
 		coffeeList.removeIf(coffee -> coffee.getId() == id);
 		return "redirect:/";
 	}
 
+	/**
+	 *
+	 * @return - goes to the new html for the adding of new coffee
+	 */
 	@GetMapping("/add")
 	public String add(){
 		return "new";
 	}
 
+	/**
+	 *
+	 * @param name - (String) name of the coffee
+	 * @param type - (String) type of the coffee
+	 * @param size - (String) size of the coffee
+	 * @param price - (int) price for the coffee
+	 * @param roastLevel - (String) roast level of the coffee
+	 * @param origin - (String) origin of the coffee
+	 * @param isDecaf - (boolean) is it decaf or not?
+	 * @param stock - (int) stock for the coffee
+	 * @param flavorNotes - (String) flavor notes for the coffee
+	 * @param brewMethod - (String) brewing method for the coffee
+	 * @return - returns to the main page where the coffee is listed
+	 */
 	@PostMapping("/save")
 	public String save(@RequestParam String name,
 					   @RequestParam String type,
@@ -72,11 +98,16 @@ public class HomeController {
 		c.setStock(stock);
 		c.setFlavorNotes(flavorNotes);
 		c.setBrewMethod(brewMethod);
-		//add new student to the array list
 		coffeeList.add(c);
 		return "redirect:/";
 	}
 
+	/**
+	 *
+	 * @param id - (int) id of the coffee
+	 * @param model - used to display the properties of the coffee
+	 * @return - goes to the edit.html and allows the user to edit the desired property of the coffee
+	 */
 	@GetMapping("/edit")
 	public String edit(@RequestParam int id, Model model) {
 		for (Coffee coffee : coffeeList) {
@@ -88,6 +119,21 @@ public class HomeController {
 		return "redirect:/";
 	}
 
+	/**
+	 *
+	 * @param id - (id) id of the coffee
+	 * @param name - (String) name of the coffee
+	 * @param type - (String) type of the coffee
+	 * @param size - (String) size of the coffee
+	 * @param price - (int) price for the coffee
+	 * @param roastLevel - (String) roast level of the coffee
+	 * @param origin - (String) origin of the coffee
+	 * @param isDecaf - (boolean) is it decaf or not?
+	 * @param stock - (int) stock for the coffee
+	 * @param flavorNotes - (String) flavor notes for the coffee
+	 * @param brewMethod - (String) brewing method for the coffee
+	 * @return - allows the page to recognize updates made in the edit.html and shows it in the main page after updating
+	 */
 	@PostMapping("/update")
 	public String update(@RequestParam int id,
 						 @RequestParam String name,
@@ -96,9 +142,9 @@ public class HomeController {
 						 @RequestParam double price,
 						 @RequestParam String roastLevel,
 						 @RequestParam String origin,
-						 @RequestParam boolean isDecaf,
+						 @RequestParam(required = false) boolean isDecaf,
 						 @RequestParam int stock,
-						 @RequestParam String flavorNotes,  // Receive as a single string
+						 @RequestParam String flavorNotes,
 						 @RequestParam String brewMethod) {
 
 		for (Coffee coffee : coffeeList) {
@@ -111,7 +157,7 @@ public class HomeController {
 				coffee.setOrigin(origin);
 				coffee.setDecaf(isDecaf);
 				coffee.setStock(stock);
-				coffee.setFlavorNotes(Arrays.asList(flavorNotes.split(", "))); // Convert string to list
+				coffee.setFlavorNotes(Arrays.asList(flavorNotes.split(", ")));
 				coffee.setBrewMethod(brewMethod);
 				break;
 			}
