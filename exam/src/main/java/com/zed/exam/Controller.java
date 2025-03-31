@@ -58,17 +58,17 @@ public class Controller {
 
     /**
      *
-     * @param name - (String) name of the coffee
-     * @param type - (String) type of the coffee
-     * @param size - (String) size of the coffee
-     * @param price - (int) price for the coffee
-     * @param roastLevel - (String) roast level of the coffee
-     * @param origin - (String) origin of the coffee
-     * @param isDecaf - (boolean) is it decaf or not?
-     * @param stock - (int) stock for the coffee
-     * @param flavorNotes - (String) flavor notes for the coffee
-     * @param brewMethod - (String) brewing method for the coffee
-     * @return - returns to the main page where the coffee is listed
+     * @param name (String) name of the coffee
+     * @param type (String) type of the coffee
+     * @param size (String) size of the coffee
+     * @param price (int) price for the coffee
+     * @param roastLevel (String) roast level of the coffee
+     * @param origin (String) origin of the coffee
+     * @param isDecaf (boolean) is it decaf or not?
+     * @param stock (int) stock for the coffee
+     * @param flavorNotes (String) flavor notes for the coffee
+     * @param brewMethod (String) brewing method for the coffee
+     * @return returns to the main page where the coffee is listed
      */
     @PostMapping("/save")
     public String save(@RequestParam String name,
