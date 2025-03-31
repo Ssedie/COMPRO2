@@ -1,16 +1,20 @@
 package com.zed.exam;
 
+import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class CoffeeService {
     private ArrayList<CoffeeExam> coffeeExamArrayList;
     private final String FILE_NAME = "database.csv";
 
     public CoffeeService() {
-        coffeeExamArrayList = new ArrayList<>();
+        this.coffeeExamArrayList = new ArrayList<>();
         readFromDisk();
     }
 
@@ -18,8 +22,8 @@ public class CoffeeService {
         return coffeeExamArrayList;
     }
 
-    public void deleteCoffeeExam(CoffeeExam coffeeExam) {
-        coffeeExamArrayList.removeIf(coffeeExam1 -> coffeeExam1.getId() == coffeeExam.getId());
+    public void deleteCoffeeExam(int id) {
+        coffeeExamArrayList.removeIf(coffeeExam -> coffeeExam.getId() == id);
         writeToDisk();
     }
 
@@ -57,7 +61,7 @@ public class CoffeeService {
         }
     }
 
-    public void addStudent(CoffeeExam coffeeExam){
+    public void addCoffee(CoffeeExam coffeeExam){
         coffeeExamArrayList.add(coffeeExam);
         writeToDisk();
     }
@@ -66,14 +70,14 @@ public class CoffeeService {
         if(coffeeExamArrayList.isEmpty()){
             return 0;
         }
-        return coffeeExamArrayList.get(coffeeExamArrayList.size()-1).getId();
+        return coffeeExamArrayList.getLast().getId() + 1;
     }
 
     public void writeToDisk(){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))){
             //write the content of the arraylist into csv
             for(CoffeeExam s : coffeeExamArrayList){
-                bw.write(s.getId() + ","
+                String line = s.getId() + ","
                         + s.getName() + ","
                         + s.getType() + ","
                         + s.getSize() + ","
@@ -82,9 +86,9 @@ public class CoffeeService {
                         + s.getOrigin() + ","
                         + s.isDecaf() + ","
                         + s.getStock() + ","
-                        + s.getBrewMethod() + ","
-                        + s.getFlavorNotes()
-                );
+                        +  s.getBrewMethod() + ","
+                        + String.join(";",s.getFlavorNotes() != null ? s.getFlavorNotes() : new ArrayList<>());
+                bw.write(line);
                 bw.newLine();
             }
         }catch(IOException e){
@@ -106,23 +110,28 @@ public class CoffeeService {
             String line;
             while((line = br.readLine()) != null){
                 String[] data = line.split(",");
+                if (data.length < 11) {
+                    System.out.println("Skipping malformed line: " + line);
+                    continue;
+                }
 
                 CoffeeExam s = new CoffeeExam();
                 s.setId(Integer.parseInt(data[0]));
                 s.setName(data[1]);
                 s.setType(data[2]);
                 s.setSize(data[3]);
-                s.setPrice(Integer.parseInt(data[4]));
+                s.setPrice(Double.parseDouble(data[4]));
                 s.setRoastLevel(data[5]);
                 s.setOrigin(data[6]);
                 s.setDecaf(Boolean.parseBoolean(data[7]));
                 s.setStock(Integer.parseInt(data[8]));
                 s.setBrewMethod(data[9]);
+                s.setFlavorNotes(Arrays.asList(data[10].split(";")));
                 //add coffee to the list
                 coffeeExamArrayList.add(s);
             }
         }catch(IOException e){
-            System.out.println("Uh-oh! Error: " + e.getMessage());
+            System.out.println("Wow! Error: " + e.getMessage());
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.zed.exam;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,15 +12,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@org.springframework.stereotype.Controller
-public class Controller {
-    CoffeeService coffeeService;
+@Controller
+public class CoffeeController {
 
-    /**
-     *
-     */
-    public Controller(){
-        coffeeService = new CoffeeService();
+    private final CoffeeService coffeeService;
+
+    @Autowired
+    public CoffeeController(CoffeeService coffeeService) {
+        this.coffeeService = coffeeService;
     }
 
 
@@ -26,7 +27,7 @@ public class Controller {
      *
      * @param search used to search for the variable that is wanted by the user
      * @param model used to add attributes
-     * @return
+     * @return it returns te main page of the program
      */
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "") String search, Model model) {
@@ -42,7 +43,7 @@ public class Controller {
      */
     @GetMapping("/delete")
     public String deleteCoffee(@RequestParam int id){
-        coffeeList.removeIf(coffee -> coffee.getId() == id);
+        coffeeService.deleteCoffeeExam(id);
         return "redirect:/";
     }
 
@@ -76,12 +77,12 @@ public class Controller {
                        @RequestParam double price,
                        @RequestParam String roastLevel,
                        @RequestParam String origin,
-                       @RequestParam boolean isDecaf,
+                       @RequestParam Boolean isDecaf,
                        @RequestParam int stock,
-                       @RequestParam List<String> flavorNotes,
+                       @RequestParam String flavorNotes,
                        @RequestParam String brewMethod){
         CoffeeExam c = new CoffeeExam();
-        c.setId(coffeeService.size() + 1);
+        c.setId(coffeeService.getId() + 1);
         c.setName(name);
         c.setType(type);
         c.setSize(size);
@@ -90,9 +91,10 @@ public class Controller {
         c.setOrigin(origin);
         c.setDecaf(isDecaf);
         c.setStock(stock);
-        c.setFlavorNotes(flavorNotes);
+        c.setFlavorNotes(Arrays.asList(flavorNotes.split(";")));
         c.setBrewMethod(brewMethod);
-        coffeeService.add(c);
+
+        coffeeService.addCoffee(c);
         return "redirect:/";
     }
 
@@ -104,11 +106,10 @@ public class Controller {
      */
     @GetMapping("/edit")
     public String edit(@RequestParam int id, Model model) {
-        for (CoffeeExam coffee : coffeeList) {
-            if (coffee.getId() == id) {
-                model.addAttribute("coffee", coffee);
-                return "edit";
-            }
+        CoffeeExam c = coffeeService.getCoffee(id);
+        if(c != null){
+            model.addAttribute("coffee", c);
+            return "edit";
         }
         return "redirect:/";
     }
@@ -136,25 +137,29 @@ public class Controller {
                          @RequestParam double price,
                          @RequestParam String roastLevel,
                          @RequestParam String origin,
-                         @RequestParam(required = false) boolean isDecaf,
+                         @RequestParam(required = false) Boolean isDecaf,
                          @RequestParam int stock,
                          @RequestParam String flavorNotes,
                          @RequestParam String brewMethod) {
 
-        for (CoffeeExam coffee : coffeeList) {
-            if (coffee.getId() == id) {
-                coffee.setName(name);
-                coffee.setType(type);
-                coffee.setSize(size);
-                coffee.setPrice(price);
-                coffee.setRoastLevel(roastLevel);
-                coffee.setOrigin(origin);
-                coffee.setDecaf(isDecaf);
-                coffee.setStock(stock);
-                coffee.setFlavorNotes(Arrays.asList(flavorNotes.split(", ")));
-                coffee.setBrewMethod(brewMethod);
-                break;
+        CoffeeExam c = coffeeService.getCoffee(id);
+        if(c != null){
+            c.setName(name);
+            c.setType(type);
+            c.setSize(size);
+            c.setPrice(price);
+            c.setRoastLevel(roastLevel);
+            c.setOrigin(origin);
+            if(isDecaf != null){
+                c.setDecaf(isDecaf);
             }
+            c.setStock(stock);
+            if (flavorNotes != null && !flavorNotes.isEmpty()) {
+                c.setFlavorNotes(Arrays.asList(flavorNotes.split(",")));
+            }
+            c.setBrewMethod(brewMethod);
+
+            coffeeService.updateCoffee(id, c);
         }
         return "redirect:/";
     }
