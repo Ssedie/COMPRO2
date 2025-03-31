@@ -12,7 +12,6 @@ import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-    private List<CoffeeExam> coffeeList = new ArrayList<>();
     CoffeeService coffeeService;
 
     /**
@@ -82,7 +81,7 @@ public class Controller {
                        @RequestParam List<String> flavorNotes,
                        @RequestParam String brewMethod){
         CoffeeExam c = new CoffeeExam();
-        c.setId(coffeeList.size() + 1);
+        c.setId(coffeeService.size() + 1);
         c.setName(name);
         c.setType(type);
         c.setSize(size);
@@ -93,7 +92,7 @@ public class Controller {
         c.setStock(stock);
         c.setFlavorNotes(flavorNotes);
         c.setBrewMethod(brewMethod);
-        coffeeList.add(c);
+        coffeeService.add(c);
         return "redirect:/";
     }
 
