@@ -14,7 +14,7 @@ public class CoffeeService {
     private final String FILE_NAME = "database.csv";
 
     public CoffeeService() {
-        this.coffeeExamArrayList = new ArrayList<>();
+        coffeeExamArrayList = new ArrayList<>();
         readFromDisk();
     }
 
@@ -29,17 +29,17 @@ public class CoffeeService {
 
     public List<CoffeeExam> searchCoffee(String keyword){
         if(keyword.trim().isEmpty()){
-            return new ArrayList<>();
+            return new ArrayList<>(coffeeExamArrayList);
         }
 
         return coffeeExamArrayList.stream().filter(s ->
-                s.getName().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getType().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getSize().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getBrewMethod().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getFlavorNotes().contains(keyword.toLowerCase())
-                        || s.getRoastLevel().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getOrigin().toLowerCase().contains(keyword.toLowerCase())
+                s.getName() != null && s.getName().toLowerCase().contains(keyword.toLowerCase())
+                        || s.getType() != null && s.getType().toLowerCase().contains(keyword.toLowerCase())
+                        || s.getSize() != null && s.getSize().toLowerCase().contains(keyword.toLowerCase())
+                        || s.getBrewMethod() != null && s.getBrewMethod().toLowerCase().contains(keyword.toLowerCase())
+                        || s.getFlavorNotes() != null && s.getFlavorNotes().contains(keyword.toLowerCase())
+                        || s.getRoastLevel() != null && s.getRoastLevel().toLowerCase().contains(keyword.toLowerCase())
+                        || s.getOrigin() != null && s.getOrigin().toLowerCase().contains(keyword.toLowerCase())
         ).collect(Collectors.toList());
     }
 
@@ -70,12 +70,13 @@ public class CoffeeService {
         if(coffeeExamArrayList.isEmpty()){
             return 0;
         }
-        return coffeeExamArrayList.getLast().getId() + 1;
+        return coffeeExamArrayList.get(coffeeExamArrayList.size() - 1).getId();
     }
 
     public void writeToDisk(){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))){
             //write the content of the arraylist into csv
+            System.out.println("Writing to file");
             for(CoffeeExam s : coffeeExamArrayList){
                 String line = s.getId() + ","
                         + s.getName() + ","
@@ -91,8 +92,9 @@ public class CoffeeService {
                 bw.write(line);
                 bw.newLine();
             }
+            System.out.println("Done writing to file");
         }catch(IOException e){
-            System.out.println("Uh-oh! Error: " + e.getMessage());
+            System.out.println("Woah! Error: " + e.getMessage());
         }
     }
 
@@ -115,21 +117,22 @@ public class CoffeeService {
                     continue;
                 }
 
-                CoffeeExam s = new CoffeeExam();
-                s.setId(Integer.parseInt(data[0]));
-                s.setName(data[1]);
-                s.setType(data[2]);
-                s.setSize(data[3]);
-                s.setPrice(Double.parseDouble(data[4]));
-                s.setRoastLevel(data[5]);
-                s.setOrigin(data[6]);
-                s.setDecaf(Boolean.parseBoolean(data[7]));
-                s.setStock(Integer.parseInt(data[8]));
-                s.setBrewMethod(data[9]);
-                s.setFlavorNotes(Arrays.asList(data[10].split(";")));
+                CoffeeExam c = new CoffeeExam();
+                c.setId(Integer.parseInt(data[0]));
+                c.setName(data[1]);
+                c.setType(data[2]);
+                c.setSize(data[3]);
+                c.setPrice(Double.parseDouble(data[4]));
+                c.setRoastLevel(data[5]);
+                c.setOrigin(data[6]);
+                c.setDecaf(Boolean.parseBoolean(data[7]));
+                c.setStock(Integer.parseInt(data[8]));
+                c.setBrewMethod(data[9]);
+                c.setFlavorNotes(data[10].isEmpty() ? new ArrayList<>() : new ArrayList<>(Arrays.asList(data[10].split(","))));
                 //add coffee to the list
-                coffeeExamArrayList.add(s);
+                coffeeExamArrayList.add(c);
             }
+            System.out.println("Done reading from file");
         }catch(IOException e){
             System.out.println("Wow! Error: " + e.getMessage());
         }

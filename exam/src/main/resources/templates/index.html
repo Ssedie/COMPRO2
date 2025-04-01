@@ -36,17 +36,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="coffee: ${coffees}">
+    <tr th:each="coffee: ${coffee}">
         <td th:text = "${coffee.id}"></td>
         <td th:text = "${coffee.name}"></td>
         <td th:text = "${coffee.type}"></td>
         <td th:text = "${coffee.size}"></td>
-        <td th:text = "${coffee.getPrice}"></td>
+        <td th:text = "${coffee.price}"></td>
         <td th:text = "${coffee.roastLevel}"></td>
         <td th:text = "${coffee.origin}"></td>
-        <td th:text = "${coffee.isDecaf}"></td>
+        <td th:text = "${coffee.decaf}"></td>
         <td th:text = "${coffee.stock}"></td>
-        <td th:text = "${coffee.flavorNotes}"></td>
+        <td th:text = "${coffee.flavorNotes != null ? #strings.arrayJoin(coffee.flavorNotes, ', ') : 'No flavor notes'}"></td>
         <td th:text = "${coffee.brewMethod}"></td>
         <td>
             <a th:href = "@{/delete(id=${coffee.id})}">Delete </a>

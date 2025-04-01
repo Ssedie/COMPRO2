@@ -1,5 +1,6 @@
 package com.zed.exam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoffeeExam {
@@ -50,7 +51,9 @@ public class CoffeeExam {
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }
     public List<String> getFlavorNotes() { return flavorNotes; }
-    public void setFlavorNotes(List<String> flavorNotes) {}
+    public void setFlavorNotes(List<String> flavorNotes) {
+        this.flavorNotes = (flavorNotes != null) ? flavorNotes : new ArrayList<String>();
+    }
     public String getBrewMethod() { return brewMethod; }
     public void setBrewMethod(String brewMethod) { this.brewMethod = brewMethod; }
 }

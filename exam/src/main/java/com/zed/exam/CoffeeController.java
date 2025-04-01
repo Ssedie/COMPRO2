@@ -31,7 +31,9 @@ public class CoffeeController {
      */
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "") String search, Model model) {
-        model.addAttribute("coffee", coffeeService.searchCoffee(search));
+        List<CoffeeExam> coffeeList = coffeeService.searchCoffee(search);
+        model.addAttribute("coffees", coffeeList);
+        model.addAttribute("coffee", coffeeService.getCoffeeExamArrayList());
 
         return "index";
     }
@@ -53,6 +55,7 @@ public class CoffeeController {
      */
     @GetMapping("/add")
     public String add(){
+
         return "new";
     }
 
