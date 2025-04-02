@@ -10,29 +10,29 @@ import java.util.stream.Collectors;
 
 @Service
 public class CoffeeService {
-    private ArrayList<CoffeeExam> coffeeExamArrayList;
+    private List<CoffeeExam> coffeeExamList;
     private final String FILE_NAME = "database.csv";
 
     public CoffeeService() {
-        coffeeExamArrayList = new ArrayList<>();
+        coffeeExamList = new ArrayList<>();
         readFromDisk();
     }
 
-    public ArrayList<CoffeeExam> getCoffeeExamArrayList() {
-        return coffeeExamArrayList;
+    public List<CoffeeExam> getCoffeeExamArrayList() {
+        return coffeeExamList;
     }
 
     public void deleteCoffeeExam(int id) {
-        coffeeExamArrayList.removeIf(coffeeExam -> coffeeExam.getId() == id);
+        coffeeExamList.removeIf(coffeeExam -> coffeeExam.getId() == id);
         writeToDisk();
     }
 
     public List<CoffeeExam> searchCoffee(String keyword){
         if(keyword.trim().isEmpty()){
-            return new ArrayList<>(coffeeExamArrayList);
+            return new ArrayList<>(coffeeExamList);
         }
 
-        return coffeeExamArrayList.stream().filter(s ->
+        return coffeeExamList.stream().filter(s ->
                 s.getName() != null && s.getName().toLowerCase().contains(keyword.toLowerCase())
                         || s.getType() != null && s.getType().toLowerCase().contains(keyword.toLowerCase())
                         || s.getSize() != null && s.getSize().toLowerCase().contains(keyword.toLowerCase())
@@ -44,7 +44,7 @@ public class CoffeeService {
     }
 
     public CoffeeExam getCoffee(int id){
-        for(CoffeeExam s: coffeeExamArrayList){
+        for(CoffeeExam s: coffeeExamList){
             if(s.getId() == id)
                 return s;
         }
@@ -52,9 +52,9 @@ public class CoffeeService {
     }
 
     public void updateCoffee(int id, CoffeeExam update){
-        for(int i = 0; i < coffeeExamArrayList.size(); i++){
-            if(coffeeExamArrayList.get(i).getId() == id){
-                coffeeExamArrayList.set(i, update);
+        for(int i = 0; i < coffeeExamList.size(); i++){
+            if(coffeeExamList.get(i).getId() == id){
+                coffeeExamList.set(i, update);
                 writeToDisk();
                 break;
             }
@@ -62,22 +62,22 @@ public class CoffeeService {
     }
 
     public void addCoffee(CoffeeExam coffeeExam){
-        coffeeExamArrayList.add(coffeeExam);
+        coffeeExamList.add(coffeeExam);
         writeToDisk();
     }
 
     public int getId(){
-        if(coffeeExamArrayList.isEmpty()){
+        if(coffeeExamList.isEmpty()){
             return 0;
         }
-        return coffeeExamArrayList.get(coffeeExamArrayList.size() - 1).getId();
+        return coffeeExamList.get(coffeeExamList.size() - 1).getId();
     }
 
     public void writeToDisk(){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_NAME))){
             //write the content of the arraylist into csv
             System.out.println("Writing to file");
-            for(CoffeeExam s : coffeeExamArrayList){
+            for(CoffeeExam s : coffeeExamList){
                 String line = s.getId() + ","
                         + s.getName() + ","
                         + s.getType() + ","
@@ -112,10 +112,6 @@ public class CoffeeService {
             String line;
             while((line = br.readLine()) != null){
                 String[] data = line.split(",");
-                if (data.length < 11) {
-                    System.out.println("Skipping malformed line: " + line);
-                    continue;
-                }
 
                 CoffeeExam c = new CoffeeExam();
                 c.setId(Integer.parseInt(data[0]));
@@ -130,7 +126,7 @@ public class CoffeeService {
                 c.setBrewMethod(data[9]);
                 c.setFlavorNotes(data[10].isEmpty() ? new ArrayList<>() : new ArrayList<>(Arrays.asList(data[10].split(","))));
                 //add coffee to the list
-                coffeeExamArrayList.add(c);
+                coffeeExamList.add(c);
             }
             System.out.println("Done reading from file");
         }catch(IOException e){
