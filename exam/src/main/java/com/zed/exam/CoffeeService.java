@@ -1,5 +1,7 @@
 package com.zed.exam;
 
+
+
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -18,7 +20,7 @@ public class CoffeeService {
         readFromDisk();
     }
 
-    public List<CoffeeExam> getCoffeeExamArrayList() {
+    public List<CoffeeExam> getCoffeeExamList() {
         return coffeeExamList;
     }
 

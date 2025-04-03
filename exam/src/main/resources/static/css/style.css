@@ -12,13 +12,74 @@ body{
 
 }
 
+h1{
+    place-self: center;
+}
+
+a{
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
+    padding:10px;
+    color: black;
+}
+
+a:hover{
+    background-color: black;
+    color: white;
+}
+
+input{
+    border-radius: 5px;
+    height:40px;
+}
+
+button{
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
+    padding:10px;
+    color: white;
+    background-color: black;
+    border: none;
+}
+
+button:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+td a{
+    display:flex;
+    gap: 20px;
+}
+
+div{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
 table{
+    width: 100%;
     border-collapse: collapse;
+    margin:10px auto;
 }
 
 th,td{
-    border: 1px solid var(--border-color);
+    border: 2px solid black;
     padding: 10px;
+}
+
+table{
+    box-shadow: 0px 3px 4px rgba(0,0,0,0.1);
+}
+
+thead{
+    background-color: black;
+    color:white;
 }
 
 th{

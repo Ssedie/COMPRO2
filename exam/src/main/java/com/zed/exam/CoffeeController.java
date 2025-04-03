@@ -17,7 +17,6 @@ public class CoffeeController {
 
     private final CoffeeService coffeeService;
 
-    @Autowired
     public CoffeeController(CoffeeService coffeeService) {
         this.coffeeService = coffeeService;
     }
@@ -31,9 +30,9 @@ public class CoffeeController {
      */
     @GetMapping("/")
     public String index(@RequestParam(defaultValue = "") String search, Model model) {
-        List<CoffeeExam> coffeeList = coffeeService.searchCoffee(search);
-        model.addAttribute("coffees", coffeeList);
-        model.addAttribute("coffee", coffeeService.getCoffeeExamArrayList());
+//        List<CoffeeExam> coffeeList = coffeeService.searchCoffee(search);
+//        model.addAttribute("coffees", coffeeList);
+        model.addAttribute("coffee", coffeeService.searchCoffee(search));
 
         return "index";
     }
@@ -55,7 +54,6 @@ public class CoffeeController {
      */
     @GetMapping("/add")
     public String add(){
-
         return "new";
     }
 
