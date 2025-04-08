@@ -4,9 +4,8 @@ package com.zed.exam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,11 +14,8 @@ import java.util.List;
 @Controller
 public class CoffeeController {
 
-    private final CoffeeService coffeeService;
-
-    public CoffeeController(CoffeeService coffeeService) {
-        this.coffeeService = coffeeService;
-    }
+    @Autowired
+    private CoffeeService coffeeService;
 
 
     /**
@@ -59,43 +55,17 @@ public class CoffeeController {
 
     /**
      *
-     * @param name (String) name of the coffee
-     * @param type (String) type of the coffee
-     * @param size (String) size of the coffee
-     * @param price (int) price for the coffee
-     * @param roastLevel (String) roast level of the coffee
-     * @param origin (String) origin of the coffee
-     * @param isDecaf (boolean) is it decaf or not?
-     * @param stock (int) stock for the coffee
-     * @param flavorNotes (String) flavor notes for the coffee
-     * @param brewMethod (String) brewing method for the coffee
-     * @return returns to the main page where the coffee is listed
+     * @param coffeeExam shortcut
+     * @param bindingResult used to catch errors
+     * @return new.html if value has errors & home if all is functional
      */
     @PostMapping("/save")
-    public String save(@RequestParam String name,
-                       @RequestParam String type,
-                       @RequestParam String size,
-                       @RequestParam double price,
-                       @RequestParam String roastLevel,
-                       @RequestParam String origin,
-                       @RequestParam Boolean isDecaf,
-                       @RequestParam int stock,
-                       @RequestParam String flavorNotes,
-                       @RequestParam String brewMethod){
-        CoffeeExam c = new CoffeeExam();
-        c.setId(coffeeService.getId() + 1);
-        c.setName(name);
-        c.setType(type);
-        c.setSize(size);
-        c.setPrice(price);
-        c.setRoastLevel(roastLevel);
-        c.setOrigin(origin);
-        c.setDecaf(isDecaf);
-        c.setStock(stock);
-        c.setFlavorNotes(Arrays.asList(flavorNotes.split(";")));
-        c.setBrewMethod(brewMethod);
+    public String save(@ModelAttribute @BindParam CoffeeExam coffeeExam, BindingResult bindingResult) {
+        coffeeService.addCoffee(coffeeExam);
 
-        coffeeService.addCoffee(c);
+        if (bindingResult.hasErrors()) {
+            return "new";
+        }
         return "redirect:/";
     }
 

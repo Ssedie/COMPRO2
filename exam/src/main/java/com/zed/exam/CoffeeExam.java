@@ -1,19 +1,31 @@
 package com.zed.exam;
 
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CoffeeExam {
+    @NotBlank
     private int id;
+    @NotBlank
     private String name;
+    @NotBlank
     private String type;
+    @NotBlank
     private String size;
+    @NotBlank
     private double price;
+    @NotBlank
     private String roastLevel;
+    @NotBlank
     private String origin;
     private boolean isDecaf;
+    @NotBlank
     private int stock;
+    @NotBlank
     private List<String> flavorNotes;
+    @NotBlank
     private String brewMethod;
 
     public CoffeeExam(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, List<String> flavorNotes, String brewMethod) {
