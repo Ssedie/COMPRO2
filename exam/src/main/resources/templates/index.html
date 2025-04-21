@@ -34,8 +34,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="coffee: ${coffee}">
-        <td th:text = "${coffee.id}"></td>
+    <tr th:each="coffee, stat : ${coffee}">
+        <td>[[${stat.count}]]</td>
         <td th:text = "${coffee.name}"></td>
         <td th:text = "${coffee.type}"></td>
         <td th:text = "${coffee.size}"></td>

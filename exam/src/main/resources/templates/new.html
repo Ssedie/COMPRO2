@@ -61,27 +61,43 @@
   <form action="/save" method="POST">
     <div>
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
+      <input type="text" id="name" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'error' : '' ">
+      <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     </div>
     <div>
       <label for="type">Type:</label>
-      <input type="text" id="type" name="type" required>
+      <select id="type" th:field="*{types}">
+        <option th:each="type : ${types}"
+                th:value="${type}"
+                th:text="${type}"
+        ></option>
+      </select>
     </div>
     <div>
       <label for="size">Size:</label>
-      <input type="text" id="size" name="size" required>
+      <select id="size" th:field="*{sizes}">
+        <option th:each="size : ${sizes}"
+                th:value="${size}"
+                th:text="${size}"
+        ></option>
+      </select>
     </div>
     <div>
       <label for="price">Price:</label>
-      <input type="number" step="0.1" id="price" name="price" required>
+      <input type="number" step="0.01" id="price" name="price" required>
     </div>
     <div>
       <label for="roastLevel">Roast Level:</label>
-      <input type="text" id="roastLevel" name="roastLevel" required>
+      <select id="roastLevel" th:field="*{roastLevels}">
+        <option th:each="level : ${roastLevels}"
+                th:value="${level}"
+                th:text="${level}"
+        ></option>
+      </select>
     </div>
     <div>
       <label for="origin">Origin:</label>
-      <input type="text" id="origin" name="origin" required>
+      <input type="text" id="origin" name="origin">
     </div>
     <div>
       <label>Decaf:</label>
@@ -90,15 +106,25 @@
     </div>
     <div>
       <label for="stock">Stock:</label>
-      <input type="number" id="stock" name="stock" required>
+      <input type="number" id="stock" name="stock">
     </div>
     <div>
-      <label for="flavorNotes">Flavor Notes (comma-separated):</label>
-      <input type="text" id="flavorNotes" name="flavorNotes" required>
+      <label>Flavor Notes (comma-separated):</label>
+      <input type="checkbox" name="flavorNotes" value="Chocolate">
+      <input type="checkbox" name="flavorNotes" value="Mint">
+      <input type="checkbox" name="flavorNotes" value="Strawberry">
+      <input type="checkbox" name="flavorNotes" value="Orange">
+      <input type="checkbox" name="flavorNotes" value="Blueberry">
+      <input type="checkbox" name="flavorNotes" value="Pineapple">
     </div>
     <div>
-      <label for="brewMethod">Brew Method:</label>
-      <input type="text" id="brewMethod" name="brewMethod" required>
+      <label for="brewMethods">Brew Method:</label>
+      <select id="brewMethods" th:field="*{brewMethods}">
+        <option th:each="method : ${brewMethods}"
+        th:value="${method}"
+        th:text="${method}"
+        ></option>>
+      </select>
     </div>
     <button type="submit">Save</button>
   </form>

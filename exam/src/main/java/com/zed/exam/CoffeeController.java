@@ -1,6 +1,7 @@
 package com.zed.exam;
 
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +50,16 @@ public class CoffeeController {
      * @return - goes to the new html for the adding of new coffee
      */
     @GetMapping("/add")
-    public String add(){
+    public String add(Model model) {
+        String[] types = {"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"};
+        model.addAttribute("types", types);
+        String[] sizes = {"Small", "Medium", "Large"};
+        model.addAttribute("sizes", sizes);
+        String[] roastLevels = {"Light", "Medium", "Dark"};
+        model.addAttribute("roastLevels", roastLevels);
+
+        CoffeeExam coffeeExam = new CoffeeExam();
+        model.addAttribute("coffeeExam", coffeeExam);
         return "new";
     }
 
@@ -60,12 +70,12 @@ public class CoffeeController {
      * @return new.html if value has errors & home if all is functional
      */
     @PostMapping("/save")
-    public String save(@ModelAttribute @BindParam CoffeeExam coffeeExam, BindingResult bindingResult) {
-        coffeeService.addCoffee(coffeeExam);
-
+    public String save(@ModelAttribute("newCoffee") @Valid CoffeeExam coffeeExam, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "new";
         }
+
+        coffeeService.addCoffee(coffeeExam);
         return "redirect:/";
     }
 
@@ -85,52 +95,17 @@ public class CoffeeController {
         return "redirect:/";
     }
 
-    /**
-     *
-     * @param id - (id) id of the coffee
-     * @param name - (String) name of the coffee
-     * @param type - (String) type of the coffee
-     * @param size - (String) size of the coffee
-     * @param price - (int) price for the coffee
-     * @param roastLevel - (String) roast level of the coffee
-     * @param origin - (String) origin of the coffee
-     * @param isDecaf - (boolean) is it decaf or not?
-     * @param stock - (int) stock for the coffee
-     * @param flavorNotes - (String) flavor notes for the coffee
-     * @param brewMethod - (String) brewing method for the coffee
-     * @return - allows the page to recognize updates made in the edit.html and shows it in the main page after updating
-     */
     @PostMapping("/update")
-    public String update(@RequestParam int id,
-                         @RequestParam String name,
-                         @RequestParam String type,
-                         @RequestParam String size,
-                         @RequestParam double price,
-                         @RequestParam String roastLevel,
-                         @RequestParam String origin,
-                         @RequestParam(required = false) Boolean isDecaf,
-                         @RequestParam int stock,
-                         @RequestParam String flavorNotes,
-                         @RequestParam String brewMethod) {
+    public String update(@ModelAttribute("coffee") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model) {
 
-        CoffeeExam c = coffeeService.getCoffee(id);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("coffee", coffeeExam);
+            return "edit";
+        }
+
+        CoffeeExam c = coffeeService.getCoffee(coffeeExam.getId());
         if(c != null){
-            c.setName(name);
-            c.setType(type);
-            c.setSize(size);
-            c.setPrice(price);
-            c.setRoastLevel(roastLevel);
-            c.setOrigin(origin);
-            if(isDecaf != null){
-                c.setDecaf(isDecaf);
-            }
-            c.setStock(stock);
-            if (flavorNotes != null && !flavorNotes.isEmpty()) {
-                c.setFlavorNotes(Arrays.asList(flavorNotes.split(",")));
-            }
-            c.setBrewMethod(brewMethod);
-
-            coffeeService.updateCoffee(id, c);
+            coffeeService.updateCoffee(coffeeExam.getId(), c);
         }
         return "redirect:/";
     }
