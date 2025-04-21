@@ -72,6 +72,9 @@ public class CoffeeController {
     @PostMapping("/save")
     public String save(@ModelAttribute("newCoffee") @Valid CoffeeExam coffeeExam, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
+        model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
+        model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
             return "new";
         }
 
