@@ -90,6 +90,9 @@ public class CoffeeController {
         CoffeeExam c = coffeeService.getCoffee(id);
         if(c != null){
             model.addAttribute("coffee", c);
+            model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
+            model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
+
             return "edit";
         }
         return "redirect:/";
@@ -100,6 +103,8 @@ public class CoffeeController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("coffee", coffeeExam);
+            model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
+            model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
             return "edit";
         }
 
