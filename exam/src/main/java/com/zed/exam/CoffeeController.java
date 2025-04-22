@@ -106,8 +106,8 @@ public class CoffeeController {
     public String update(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("coffee", coffeeExam);
-            model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano"});
+            model.addAttribute("coffeeExam", coffeeExam);
+            model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
             model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
             model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
             model.addAttribute("brewMethods", new String[]{"Drip", "French Press", "Espresso", "Filter"});

@@ -64,15 +64,16 @@ public class CoffeeService {
     }
 
     public void addCoffee(CoffeeExam coffeeExam){
+        coffeeExam.setId(getId());
         coffeeExamList.add(coffeeExam);
         writeToDisk();
     }
 
     public int getId(){
         if(coffeeExamList.isEmpty()){
-            return 0;
+            return 1;
         }
-        return coffeeExamList.get(coffeeExamList.size() - 1).getId();
+        return coffeeExamList.get(coffeeExamList.size() - 1).getId() + 1;
     }
 
     public void writeToDisk(){
