@@ -90,7 +90,7 @@ public class CoffeeService {
                         + s.isDecaf() + ","
                         + s.getStock() + ","
                         +  s.getBrewMethod() + ","
-                        + String.join(";",s.getFlavorNotes() != null ? s.getFlavorNotes() : new ArrayList<>());
+                        + (s.getFlavorNotes() != null ? s.getFlavorNotes() : "");
                 bw.write(line);
                 bw.newLine();
             }
@@ -115,6 +115,10 @@ public class CoffeeService {
             while((line = br.readLine()) != null){
                 String[] data = line.split(",");
 
+                if(data.length < 10){
+                    continue;
+                }
+
                 CoffeeExam c = new CoffeeExam();
                 c.setId(Integer.parseInt(data[0]));
                 c.setName(data[1]);
@@ -126,7 +130,13 @@ public class CoffeeService {
                 c.setDecaf(Boolean.parseBoolean(data[7]));
                 c.setStock(Integer.parseInt(data[8]));
                 c.setBrewMethod(data[9]);
-                c.setFlavorNotes(data[10].isEmpty() ? new ArrayList<>() : new ArrayList<>(Arrays.asList(data[10].split(","))));
+
+                if(data.length >= 11){
+                    c.setFlavorNotes(data[10]);
+                }else{
+                    c.setFlavorNotes("");
+                }
+
                 //add coffee to the list
                 coffeeExamList.add(c);
             }

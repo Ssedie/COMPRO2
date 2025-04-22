@@ -4,115 +4,190 @@
   <title>Edit Coffee</title>
 
   <style>
-    body{
-      box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
-      background-color: lightgray;
+    :root {
+      --primary-color: #2c3e8c;
+      --border-color: #3498db;
+      --danger-color: #e74c3c;
+      --warning-color: #21618c;
+      --main-font: "Roboto", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: var(--main-font);
+    }
+
+    body {
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 40px;
       display: flex;
-      flex-wrap: wrap;
       flex-direction: column;
-      place-content: center;
-      height:750px;
+      align-items: center;
+      height: 100vh;
+      justify-content: center;
     }
 
-    input{
-      border-radius: 5px;
-      height:40px;
+    h1 {
+      margin-top: 400px;
+      color: var(--primary-color);
+      margin-bottom: 24px;
     }
 
-    div{
+    .form-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .form-container div {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select {
       padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      width: 100%;
     }
 
-    a{
-      text-decoration: none;
-      border-radius: 5px;
-      box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
-      padding:10px;
-      color: black;
-      width:100px;
+    input[type="checkbox"] {
+      margin-right: 10px;
     }
 
-    a:hover{
-      background-color: black;
+    .form-container button {
+      background-color: var(--primary-color);
       color: white;
-    }
-
-    button{
-      text-decoration: none;
-      border-radius: 5px;
-      box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
-      padding:10px;
-      color: white;
-      background-color: black;
       border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      width: 100%;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
     }
 
-    button:hover{
-      background-color: white;
-      color: black;
-      cursor: pointer;
+    .form-container button:hover {
+      background-color: var(--warning-color);
+    }
+
+    .form-container .action {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .form-container a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      padding: 10px 16px;
+      border: 1px solid var(--primary-color);
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    .form-container a:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .error {
+      color: var(--danger-color);
+      font-size: 0.875rem;
+      margin-top: 5px;
+    }
+
+    .error input, .error select {
+      border-color: var(--danger-color);
     }
   </style>
 
 </head>
 <body>
-<h1 th:text="'Edit' + ${coffee.name}"></h1>
-<div>
-  <form th:action="@{/update}" method="post" th:object="${coffee}">
-    <input type="hidden" name="id" th:value="*{id}">
+<h1 th:text="'Edit ' + ${coffeeExam.name}"></h1>
+<div class="form-container">
+  <form th:action="@{/update}" method="post" th:object="${coffeeExam}">
+    <input type="hidden" th:field="*{id}"/>
+
     <div>
       <label for="name">Name</label>
-      <input type="text" id="name" th:value="${coffee.name}" th:classappend="${#fields.hasErrors('name')} ? 'error' : '' "/>
+      <input type="text" id="name" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'error' : ''"/>
       <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     </div>
+
     <div>
       <label for="type">Type</label>
-      <input type="text" id="type" th:value="${coffee.type}" th:classappend="${#fields.hasErrors('type')} ? 'error' : '' "/>
+      <select id="type" th:field="*{type}">
+        <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+      </select>
       <p class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
     </div>
+
     <div>
       <label>Size</label>
       <select th:field="*{size}" id="size">
-        <option th:each="size : ${sizes}"
-                th:value="${size}"
-                th:text="${size}"
-        ></option>
+        <option th:each="size : ${sizes}" th:value="${size}" th:text="${size}"></option>
       </select>
     </div>
+
     <div>
-      <input type="number" step="0.01" name="price" th:value="${coffee.price}" placeholder="Price" required />
+      <label>Price</label>
+      <input type="number" step="0.01" th:field="*{price}" placeholder="Price"/>
     </div>
+
     <div>
       <label>Roast Level</label>
       <select th:field="*{roastLevel}" id="roastLevel">
-        <option th:each="roastLevel : ${roastLevels}"
-                th:value="${roastLevel}"
-                th:text="${roastLevel}"
-        ></option>
+        <option th:each="roastLevel : ${roastLevels}" th:value="${roastLevel}" th:text="${roastLevel}"></option>
       </select>
     </div>
+
     <div>
-      <input type="text" name="origin" th:value="${coffee.origin}" placeholder="Origin" required />
+      <label>Coffee Origin</label>
+      <input type="text" th:field="*{origin}" placeholder="Origin"/>
     </div>
+
     <div>
-      <input type="checkbox" name="isDecaf" th:checked="${coffee.decaf}" value="true" /> Decaf
+      <input type="checkbox" th:field="*{decaf}" value="true"/> Decaf
     </div>
+
     <div>
-      <input type="number" name="stock" th:value="${coffee.stock}" placeholder="Stock" required />
+      <label>Stock</label>
+      <input type="number" th:field="*{stock}" placeholder="Stock"/>
     </div>
+
     <div>
-      <input type="text" name="flavorNotes" th:value="${coffee.flavorNotes}" placeholder="Flavor Notes" required />
+      <label>Flavor Notes</label>
+      <input type="checkbox" th:field="*{flavorNotes}" value="Chocolate"/>Chocolate
+      <input type="checkbox" th:field="*{flavorNotes}" value="Mint"/>Mint
+      <input type="checkbox" th:field="*{flavorNotes}" value="Strawberry"/>Strawberry
+      <input type="checkbox" th:field="*{flavorNotes}" value="Orange"/>Orange
+      <input type="checkbox" th:field="*{flavorNotes}" value="Blueberry"/>Blueberry
+      <input type="checkbox" th:field="*{flavorNotes}" value="Pineapple"/>Pineapple
     </div>
+
     <div>
-      <input type="text" name="brewMethod" th:value="${coffee.brewMethod}" placeholder="Brew Method" required />
+      <label for="brewMethods">Brew Method</label>
+      <select th:field="*{brewMethod}" id="brewMethods">
+        <option th:each="method : ${brewMethods}" th:value="${method}" th:text="${method}"></option>
+      </select>
     </div>
+
     <div class="action">
       <a th:href="@{/}" class="button cancel">Cancel</a>
       <button>Update Coffee</button>
+      <a href="/">Back to List</a>
     </div>
   </form>
 </div>
-
-<a href="/">Back to List</a>
 </body>
 </html>

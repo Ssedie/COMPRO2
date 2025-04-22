@@ -1,35 +1,33 @@
 package com.zed.exam;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CoffeeExam {
     private int id;
-    @NotBlank (message = "Need name for the coffee")
-    @Size (min = 2, max = 50)
+    @Size (min = 2, max = 50, message = "Name must be greater than 2 letters and lesser than 50 letters")
     private String name;
     @NotBlank (message = "Need the coffee's type")
     private String type;
     @NotBlank (message = "Need the coffee's size")
     private String size;
-    @NotBlank (message = "Price is needed for the coffee")
+    @DecimalMin(value = "0.01", message = "Price must be greater than zero")
     private double price;
     @NotBlank (message = "Need coffee's roast level")
     private String roastLevel;
     @Size(max = 100)
     private String origin;
     private boolean isDecaf;
-    @NotBlank(message = "Need the coffee's stock")
-    @Size(min = 0)
+    @NotNull(message = "Need the coffee's stock")
+    @Min(value = 0, message = "Stock must be a positive number")
     private int stock;
-    private List<String> flavorNotes;
+    private String flavorNotes;
     @NotBlank (message = "Need the coffee's brew method")
     private String brewMethod;
 
-    public CoffeeExam(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, List<String> flavorNotes, String brewMethod) {
+    public CoffeeExam(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, String flavorNotes, String brewMethod) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -63,9 +61,9 @@ public class CoffeeExam {
     public void setDecaf(boolean isDecaf) { this.isDecaf = isDecaf; }
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }
-    public List<String> getFlavorNotes() { return flavorNotes; }
-    public void setFlavorNotes(List<String> flavorNotes) {
-        this.flavorNotes = (flavorNotes != null) ? flavorNotes : new ArrayList<String>();
+    public String getFlavorNotes() { return flavorNotes; }
+    public void setFlavorNotes(String flavorNotes) {
+        this.flavorNotes = flavorNotes;
     }
     public String getBrewMethod() { return brewMethod; }
     public void setBrewMethod(String brewMethod) { this.brewMethod = brewMethod; }

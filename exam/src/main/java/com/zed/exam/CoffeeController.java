@@ -16,7 +16,7 @@ import java.util.List;
 public class CoffeeController {
 
     @Autowired
-    private CoffeeService coffeeService;
+    CoffeeService coffeeService;
 
 
     /**
@@ -51,12 +51,10 @@ public class CoffeeController {
      */
     @GetMapping("/add")
     public String add(Model model) {
-        String[] types = {"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"};
-        model.addAttribute("types", types);
-        String[] sizes = {"Small", "Medium", "Large"};
-        model.addAttribute("sizes", sizes);
-        String[] roastLevels = {"Light", "Medium", "Dark"};
-        model.addAttribute("roastLevels", roastLevels);
+        model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
+        model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
+        model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
+        model.addAttribute("brewMethods", new String[]{"Drip", "French Press", "Espresso", "Filter"});
 
         CoffeeExam coffeeExam = new CoffeeExam();
         model.addAttribute("coffeeExam", coffeeExam);
@@ -70,11 +68,12 @@ public class CoffeeController {
      * @return new.html if value has errors & home if all is functional
      */
     @PostMapping("/save")
-    public String save(@ModelAttribute("newCoffee") @Valid CoffeeExam coffeeExam, BindingResult bindingResult) {
+    public String save(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
-        model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
-        model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
+            model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
+            model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
+            model.addAttribute("brewMethods", new String[]{"Drip", "French Press", "Espresso", "Filter"});
             return "new";
         }
 
@@ -92,9 +91,11 @@ public class CoffeeController {
     public String edit(@RequestParam int id, Model model) {
         CoffeeExam c = coffeeService.getCoffee(id);
         if(c != null){
-            model.addAttribute("coffee", c);
+            model.addAttribute("coffeeExam", c);
+            model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
             model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
             model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
+            model.addAttribute("brewMethods", new String[]{"Drip", "French Press", "Espresso", "Filter"});
 
             return "edit";
         }
@@ -102,18 +103,20 @@ public class CoffeeController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute("coffee") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model) {
+    public String update(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("coffee", coffeeExam);
+            model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano"});
             model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
             model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
+            model.addAttribute("brewMethods", new String[]{"Drip", "French Press", "Espresso", "Filter"});
             return "edit";
         }
 
         CoffeeExam c = coffeeService.getCoffee(coffeeExam.getId());
         if(c != null){
-            coffeeService.updateCoffee(coffeeExam.getId(), c);
+            coffeeService.updateCoffee(coffeeExam.getId(), coffeeExam);
         }
         return "redirect:/";
     }
