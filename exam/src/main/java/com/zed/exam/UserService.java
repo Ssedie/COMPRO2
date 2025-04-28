@@ -1,0 +1,44 @@
+package com.zed.exam;
+
+import jakarta.annotation.PostConstruct;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class UserService {
+    private List<AppUser> appUsers;
+
+    @PostConstruct
+    public void init() throws IOException {
+        appUsers = new ArrayList<>();
+
+        ClassPathResource resource = new ClassPathResource("data/users.csv");
+        InputStream inputStream = resource.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        String line;
+        reader.readLine(); // skip header
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            AppUser appUser = new AppUser();
+            appUser.setUsername(parts[0]);
+            appUser.setPassword(parts[1]);
+            appUsers.add(appUser);
+        }
+    }
+
+    public AppUser findByUsername(String username) {
+        return appUsers.stream()
+                .filter(u -> u.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void save(AppUser appUser) {
+        //TO DO
+    }
+}

@@ -1,6 +1,7 @@
 package com.zed.exam;
 
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,14 @@ public class CoffeeController {
      * @return it returns te main page of the program
      */
     @GetMapping("/")
-    public String index(@RequestParam(defaultValue = "") String search, Model model) {
+    public String index(@RequestParam(defaultValue = "") String search, HttpSession session, Model model) {
 //        List<CoffeeExam> coffeeList = coffeeService.searchCoffee(search);
 //        model.addAttribute("coffees", coffeeList);
+        AppUser user = (AppUser) session.getAttribute("loggedInUser");
+        if(user == null) {
+            return "redirect:/login";
+        }
+
         model.addAttribute("coffee", coffeeService.searchCoffee(search));
 
         return "index";

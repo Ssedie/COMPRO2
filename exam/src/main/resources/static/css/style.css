@@ -12,12 +12,13 @@
 }
 
 body {
-    background: #f3f4f6;
+    background-color: #f3f4f6;
     margin: 0;
     padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
 h1 {
@@ -41,7 +42,7 @@ h1 {
     text-decoration: none;
     border-radius: 6px;
     font-weight: 600;
-    transition: 0.2s;
+    transition: background-color 0.3s;
 }
 
 .top-bar a:hover {
@@ -54,7 +55,7 @@ h1 {
 }
 
 .top-bar input[type="text"] {
-    padding: 8px;
+    padding: 10px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
     width: 200px;
@@ -65,15 +66,17 @@ h1 {
     color: white;
     border: none;
     border-radius: 6px;
-    padding: 8px 12px;
+    padding: 10px 20px;
     cursor: pointer;
     font-weight: 600;
+    transition: background-color 0.3s;
 }
 
 .top-bar button:hover {
     background-color: var(--warning-color);
 }
 
+/* Make the table look like a card */
 table {
     border-collapse: collapse;
     width: 100%;
@@ -85,9 +88,10 @@ table {
 }
 
 th, td {
-    padding: 14px 16px;
+    padding: 16px 20px;
     text-align: left;
     border-bottom: 1px solid #eee;
+    font-size: 1rem;
 }
 
 th {
@@ -103,10 +107,18 @@ tr:hover {
 td a {
     text-decoration: none;
     color: var(--border-color);
-    font-weight: 500;
-    margin-right: 10px;
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
 td a:hover {
     color: var(--danger-color);
+}
+
+/* Optional: add a little space between the top-bar and table */
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
