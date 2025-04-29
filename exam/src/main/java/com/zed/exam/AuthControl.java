@@ -1,11 +1,14 @@
 package com.zed.exam;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,36 +19,36 @@ public class AuthControl {
     UserService userService;
 
     @GetMapping("/login")
-    public String login(HttpSession session) {
-        //check if user logged in
-        AppUser user = (AppUser) session.getAttribute("loggedInUser");
-        if(user != null) {
-            return "redirect:/";
-        }
+    public String login(Model model) {
+        model.addAttribute("user", new AppUser());
 
         return "login";
     }
-
     @PostMapping("/login")
-    public String login(
-            @RequestParam String username,
-            @RequestParam String password,
-            HttpSession session,
-            Model model
-    ) {
-        AppUser user = userService.findByUsername(username);
-        if (user != null && new BCryptPasswordEncoder().matches(password, user.getPassword())) {
-            session.setAttribute("loggedInUser", user);
-            return "redirect:/";
+    public String login(@ModelAttribute("user") @Valid AppUser formUser, BindingResult bindingResult, HttpSession session, Model model){
+        if(bindingResult.hasErrors()){
+            return "login";
         }
 
-        model.addAttribute("error", "Invalid credentials");
-        return "login";
+        //authenticate
+        AppUser foundUser = userService.findByUsername(formUser.getUsername());
+        if(foundUser != null && new BCryptPasswordEncoder().matches(formUser.getPassword(), foundUser.getPassword())){
+            session.setAttribute("user", foundUser);
+            return "redirect:/";
+        }else{
+            String error ="Invalid credentials";
+            model.addAttribute("error", error);
+        }
+
+
+        return "index";
+
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate(); // clears session
+    public String logout(HttpSession session){
+        session.invalidate();
         return "redirect:/login";
     }
+
 }

@@ -6,19 +6,21 @@
 </head>
 <body>
 
-<form method="post" action="/login">
+<form method="post" action="/login" th:object="${user}">
     <h2>Login</h2>
     <div th:if="${error}">
         <p style="color:red;" th:text="${error}"></p>
     </div>
     <div>
         <label>Username:</label>
-        <input type="text" name="username" required />
+        <input type="text" name="username" th:field="*{username}" th:classappend="${#fields.hasErrors('username')} ? 'error' : '' ">
+        <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
     </div>
 
     <div>
         <label>Password:</label>
-        <input type="password" name="password" required />
+        <input type="password" name="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? 'error' : '' " />
+        <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
     </div>
 
     <div>

@@ -30,7 +30,7 @@ public class CoffeeController {
     public String index(@RequestParam(defaultValue = "") String search, HttpSession session, Model model) {
 //        List<CoffeeExam> coffeeList = coffeeService.searchCoffee(search);
 //        model.addAttribute("coffees", coffeeList);
-        AppUser user = (AppUser) session.getAttribute("loggedInUser");
+        AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
             return "redirect:/login";
         }
@@ -46,7 +46,11 @@ public class CoffeeController {
      * @return - deletes the coffee that is listed
      */
     @GetMapping("/delete")
-    public String deleteCoffee(@RequestParam int id){
+    public String deleteCoffee(@RequestParam int id, HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/login";
+        }
         coffeeService.deleteCoffeeExam(id);
         return "redirect:/";
     }
@@ -56,7 +60,11 @@ public class CoffeeController {
      * @return - goes to the new html for the adding of new coffee
      */
     @GetMapping("/add")
-    public String add(Model model) {
+    public String add(Model model, HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
         model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
         model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
@@ -74,7 +82,11 @@ public class CoffeeController {
      * @return new.html if value has errors & home if all is functional
      */
     @PostMapping("/save")
-    public String save(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model) {
+    public String save(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model, HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/login";
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
             model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
@@ -94,7 +106,11 @@ public class CoffeeController {
      * @return - goes to the edit.html and allows the user to edit the desired property of the coffee
      */
     @GetMapping("/edit")
-    public String edit(@RequestParam int id, Model model) {
+    public String edit(@RequestParam int id, Model model, HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/login";
+        }
         CoffeeExam c = coffeeService.getCoffee(id);
         if(c != null){
             model.addAttribute("coffeeExam", c);
@@ -109,7 +125,11 @@ public class CoffeeController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model) {
+    public String update(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model, HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/login";
+        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("coffeeExam", coffeeExam);

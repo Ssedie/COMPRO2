@@ -15,11 +15,9 @@ public class UserService {
     @PostConstruct
     public void init() throws IOException {
         appUsers = new ArrayList<>();
+        File file = new File("data/users.csv"); // path relative to project root
 
-        ClassPathResource resource = new ClassPathResource("data/users.csv");
-        InputStream inputStream = resource.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
+        BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
         reader.readLine(); // skip header
         while ((line = reader.readLine()) != null) {

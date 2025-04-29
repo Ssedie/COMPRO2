@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class CoffeeService {
     private List<CoffeeExam> coffeeExamList;
     private final String FILE_NAME = "database.csv";
+    private int currentMaxId = 0;
 
     public CoffeeService() {
         coffeeExamList = new ArrayList<>();
@@ -64,7 +65,7 @@ public class CoffeeService {
     }
 
     public void addCoffee(CoffeeExam coffeeExam){
-        coffeeExam.setId(getId());
+        coffeeExam.setId(++currentMaxId);
         coffeeExamList.add(coffeeExam);
         writeToDisk();
     }
@@ -140,6 +141,10 @@ public class CoffeeService {
 
                 //add coffee to the list
                 coffeeExamList.add(c);
+
+                if (c.getId() > currentMaxId) {
+                    currentMaxId = c.getId();
+                }
             }
             System.out.println("Done reading from file");
         }catch(IOException e){
