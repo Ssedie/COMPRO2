@@ -8,10 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class CoffeeController {
@@ -82,7 +86,7 @@ public class CoffeeController {
      * @return new.html if value has errors & home if all is functional
      */
     @PostMapping("/save")
-    public String save(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model, HttpSession session) {
+    public String save(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, @RequestParam(value = "imageFile") MultipartFile coffeePicture, Model model, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
             return "redirect:/login";
@@ -93,6 +97,25 @@ public class CoffeeController {
             model.addAttribute("roastLevels", new String[]{"Light", "Medium", "Dark"});
             model.addAttribute("brewMethods", new String[]{"Drip", "French Press", "Espresso", "Filter"});
             return "new";
+        }
+
+        coffeeExam.setId(coffeeService.getId() + 1);
+
+        // Handle image upload
+        if (!coffeePicture.isEmpty()) {
+            String path = "data/coffee_pictures/";
+            File uploadFolder = new File(path);
+            if (!uploadFolder.exists()) {
+                uploadFolder.mkdirs();
+            }
+
+            String fileName = UUID.randomUUID() + coffeePicture.getOriginalFilename().substring(coffeePicture.getOriginalFilename().lastIndexOf("."));
+            try {
+                coffeePicture.transferTo(new File(uploadFolder.getAbsolutePath() + File.separator + fileName));
+                coffeeExam.setCoffeePicture(fileName);
+            } catch (IOException e) {
+                System.out.println("File upload error: " + e.getMessage());
+            }
         }
 
         coffeeService.addCoffee(coffeeExam);
@@ -145,5 +168,12 @@ public class CoffeeController {
             coffeeService.updateCoffee(coffeeExam.getId(), coffeeExam);
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/coffee/{id}")
+    public String view(@PathVariable int id, Model model) {
+        CoffeeExam c = coffeeService.getCoffee(id);
+        model.addAttribute("coffeeExam", c);
+        return "coffee";
     }
 }

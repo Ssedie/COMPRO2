@@ -26,8 +26,9 @@ public class CoffeeExam {
     private String flavorNotes;
     @NotBlank (message = "Need the coffee's brew method")
     private String brewMethod;
+    private String coffeePicture;
 
-    public CoffeeExam(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, String flavorNotes, String brewMethod) {
+    public CoffeeExam(int id, String name, String type, String size, double price, String roastLevel, String origin, boolean isDecaf, int stock, String flavorNotes, String brewMethod, String coffeePicture) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -39,6 +40,7 @@ public class CoffeeExam {
         this.stock = stock;
         this.flavorNotes = flavorNotes;
         this.brewMethod = brewMethod;
+        this.coffeePicture = coffeePicture;
     }
 
     public CoffeeExam() {}
@@ -67,4 +69,8 @@ public class CoffeeExam {
     }
     public String getBrewMethod() { return brewMethod; }
     public void setBrewMethod(String brewMethod) { this.brewMethod = brewMethod; }
+    public String getCoffeePicture() { return coffeePicture; }
+    public void setCoffeePicture(String coffeePicture) {
+        this.coffeePicture = coffeePicture;
+    }
 }

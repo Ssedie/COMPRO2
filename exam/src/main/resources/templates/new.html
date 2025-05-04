@@ -66,12 +66,12 @@
       </div>
       <div>
         <label>Flavor Notes (comma-separated):</label>
-        <input type="checkbox" name="flavorNotes" value="Chocolate">Chocolate
-        <input type="checkbox" name="flavorNotes" value="Mint">Mint
-        <input type="checkbox" name="flavorNotes" value="Strawberry">Strawberry
-        <input type="checkbox" name="flavorNotes" value="Orange">Orange
-        <input type="checkbox" name="flavorNotes" value="Blueberry">Blueberry
-        <input type="checkbox" name="flavorNotes" value="Pineapple">Pineapple
+        <input type="checkbox" th:field="*{flavorNotes}" value="Chocolate">Chocolate
+        <input type="checkbox" th:field="*{flavorNotes}" value="Mint">Mint
+        <input type="checkbox" th:field="*{flavorNotes}" value="Strawberry">Strawberry
+        <input type="checkbox" th:field="*{flavorNotes}" value="Orange">Orange
+        <input type="checkbox" th:field="*{flavorNotes}" value="Blueberry">Blueberry
+        <input type="checkbox" th:field="*{flavorNotes}" value="Pineapple">Pineapple
       </div>
       <div>
         <label for="brewMethods">Brew Method:</label>
@@ -82,6 +82,10 @@
                   th:text="${method}"
           ></option>
         </select>
+      </div>
+      <div>
+        <label for="imageFile">Profile Picture:</label>
+        <input type="file" id="imageFile" name="imageFile"/>
       </div>
       <button type="submit">Save</button>
     </form>

@@ -167,12 +167,12 @@
 
     <div>
       <label>Flavor Notes</label>
-      <input type="checkbox" th:field="*{flavorNotes}" value="Chocolate"/>Chocolate
-      <input type="checkbox" th:field="*{flavorNotes}" value="Mint"/>Mint
-      <input type="checkbox" th:field="*{flavorNotes}" value="Strawberry"/>Strawberry
-      <input type="checkbox" th:field="*{flavorNotes}" value="Orange"/>Orange
-      <input type="checkbox" th:field="*{flavorNotes}" value="Blueberry"/>Blueberry
-      <input type="checkbox" th:field="*{flavorNotes}" value="Pineapple"/>Pineapple
+      <input type="checkbox" name="flavorNotes" value="Chocolate" th:checked="${#strings.contains(coffeeExam.flavorNotes, 'Chocolate')}" />Chocolate
+      <input type="checkbox" name="flavorNotes" value="Mint" th:checked="${#strings.contains(coffeeExam.flavorNotes, 'Mint')}" />Mint
+      <input type="checkbox" name="flavorNotes" value="Strawberry" th:checked="${#strings.contains(coffeeExam.flavorNotes, 'Strawberry')}" />Strawberry
+      <input type="checkbox" name="flavorNotes" value="Orange" th:checked="${#strings.contains(coffeeExam.flavorNotes, 'Orange')}" />Orange
+      <input type="checkbox" name="flavorNotes" value="Blueberry" th:checked="${#strings.contains(coffeeExam.flavorNotes, 'Blueberry')}" />Blueberry
+      <input type="checkbox" name="flavorNotes" value="Pineapple" th:checked="${#strings.contains(coffeeExam.flavorNotes, 'Pineapple')}" />Pineapple
     </div>
 
     <div>

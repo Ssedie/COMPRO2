@@ -10,7 +10,13 @@
 <main>
     <div class="top-bar">
         <h1>Coffee List</h1>
+
+        <div class="logout-container">
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+
         <a href="/add">Add New Coffee</a>
+
         <form th:action="@{/search}" method="get">
             <input type="text" name="search" placeholder="Search...">
             <button type="submit">Search</button>
@@ -48,6 +54,7 @@
             <td th:text="${coffee.flavorNotes != null ? #strings.arrayJoin(coffee.flavorNotes, ', ') : 'No flavor notes'}"></td>
             <td th:text="${coffee.brewMethod}"></td>
             <td>
+                <a th:href="@{/coffee/{id}(id=${coffee.id})}"  class="view">View</a>
                 <a th:href="@{/edit(id=${coffee.id})}">Edit</a>
                 <a th:href="@{/delete(id=${coffee.id})}">Delete</a>
             </td>
