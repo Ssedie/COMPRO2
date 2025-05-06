@@ -31,7 +31,7 @@
         <div><strong>Origin:</strong> <span th:text="${coffeeExam.origin}"></span></div>
         <div><strong>Stock:</strong> <span th:text="${coffeeExam.stock}"></span></div>
         <div><strong>Decaf:</strong> <span th:text="${coffeeExam.decaf}"></span></div>
-        <div><strong>Flavor Notes:</strong>
+        <div class="flavor-notes"><strong>Flavor Notes:</strong>
             <ul>
                 <li th:each="note : ${coffeeExam.flavorNotes}" th:text="${note}"></li>
             </ul>
