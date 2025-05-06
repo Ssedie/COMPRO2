@@ -1,3 +1,4 @@
-0,Zed,Latte,Medium,6.5,Dark,America,false,9,Drip,Chocolate;Orange
-0,Hi,Americano,Medium,4.5,Medium,Italy,false,5,Filter,Mint
-0,Kape,Latte,Medium,4.5,Medium,Palawan,false,9,French Press,Chocolate
+1,zed,Espresso,Medium,45.0,Medium,Italy,false,5,French Press,Chocolate
+2,wew,Espresso,Medium,40.0,Medium,Palawan,false,8,Filter,Mint
+3,wew,Latte,Medium,50.0,Dark,Italy,false,5,French Press,Chocolate
+4,zed,Americano,Small,35.0,Medium,America,false,5,French Press,Mint,Strawberry

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 public class AppUser {
     @NotBlank(message = "Username should not be blank")
     private String username;
+    @NotBlank(message = "Password is incorrect")
     private String password;
 
     public String getUsername() {

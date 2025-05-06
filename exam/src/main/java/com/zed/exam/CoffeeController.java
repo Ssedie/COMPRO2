@@ -91,6 +91,7 @@ public class CoffeeController {
         if(user == null) {
             return "redirect:/login";
         }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
             model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
@@ -103,6 +104,14 @@ public class CoffeeController {
 
         // Handle image upload
         if (!coffeePicture.isEmpty()) {
+
+            String contentType = coffeePicture.getContentType();
+            if (!contentType.startsWith("image")) {
+                System.out.println("File is not an image: " + coffeePicture.getOriginalFilename());
+                bindingResult.rejectValue("coffeePicture", "error.coffeePicture", "The uploaded file is not an image.");
+                return "new";
+            }
+
             String path = "data/coffee_pictures/";
             File uploadFolder = new File(path);
             if (!uploadFolder.exists()) {
@@ -171,7 +180,12 @@ public class CoffeeController {
     }
 
     @GetMapping("/coffee/{id}")
-    public String view(@PathVariable int id, Model model) {
+    public String view(@PathVariable int id, Model model, HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/login";
+        }
+
         CoffeeExam c = coffeeService.getCoffee(id);
         model.addAttribute("coffeeExam", c);
         return "coffee";

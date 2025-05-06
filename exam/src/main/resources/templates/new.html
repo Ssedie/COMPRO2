@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>New Coffee</title>
-    <link rel="stylesheet" th:href="@{/css/create.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
   </head>
   <body>
 
   <div class="form-container">
     <h1>New Coffee</h1>
-    <form action="/save" method="POST" th:object="${coffeeExam}">
+    <form action="/save" method="POST" enctype="multipart/form-data" th:object="${coffeeExam}">
       <div>
         <label for="name">Name:</label>
         <input type="text" id="name" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'error' : '' ">
@@ -19,21 +19,21 @@
       <div>
         <label for="type">Type:</label>
         <select id="type" th:field="*{type}">
-          <option value="" disabled selected>-- Please Select --</option>
+          <option th:if="${#fields.hasErrors('type') or coffeeExam.type == null}" value="" disabled selected>-- Please Select --</option>
           <option th:each="type : ${types}"
                   th:value="${type}"
-                  th:text="${type}"
-          ></option>
+                  th:text="${type}">
+          </option>
         </select>
       </div>
       <div>
         <label for="size">Size:</label>
         <select id="size" th:field="*{size}">
-          <option value="" disabled selected>-- Please Select --</option>
+          <option th:if="${#fields.hasErrors('size') or coffeeExam.size == null}" value="" disabled selected>-- Please Select --</option>
           <option th:each="size : ${sizes}"
                   th:value="${size}"
-                  th:text="${size}"
-          ></option>
+                  th:text="${size}">
+          </option>
         </select>
       </div>
       <div>
@@ -44,11 +44,11 @@
       <div>
         <label for="roastLevel">Roast Level:</label>
         <select id="roastLevel" th:field="*{roastLevel}">
-          <option value="" disabled selected>-- Please Select --</option>
+          <option th:if="${#fields.hasErrors('roastLevel') or coffeeExam.roastLevel == null}" value="" disabled selected>-- Please Select --</option>
           <option th:each="level : ${roastLevels}"
                   th:value="${level}"
-                  th:text="${level}"
-          ></option>
+                  th:text="${level}">
+          </option>
         </select>
       </div>
       <div>
@@ -64,23 +64,42 @@
         <label for="stock">Stock:</label>
         <input type="number" id="stock" name="stock">
       </div>
-      <div>
-        <label>Flavor Notes (comma-separated):</label>
-        <input type="checkbox" th:field="*{flavorNotes}" value="Chocolate">Chocolate
-        <input type="checkbox" th:field="*{flavorNotes}" value="Mint">Mint
-        <input type="checkbox" th:field="*{flavorNotes}" value="Strawberry">Strawberry
-        <input type="checkbox" th:field="*{flavorNotes}" value="Orange">Orange
-        <input type="checkbox" th:field="*{flavorNotes}" value="Blueberry">Blueberry
-        <input type="checkbox" th:field="*{flavorNotes}" value="Pineapple">Pineapple
+      <div class="flavor-notes-container">
+        <label>Flavor Notes (select all that apply):</label>
+        <div>
+          <label for="chocolate">Chocolate</label>
+          <input type="checkbox" th:field="*{flavorNotes}" value="Chocolate" id="chocolate">
+
+        </div>
+        <div>
+          <label for="mint">Mint</label>
+          <input type="checkbox" th:field="*{flavorNotes}" value="Mint" id="mint">
+        </div>
+        <div>
+          <label for="strawberry">Strawberry</label>
+          <input type="checkbox" th:field="*{flavorNotes}" value="Strawberry" id="strawberry">
+        </div>
+        <div>
+          <label for="orange">Orange</label>
+          <input type="checkbox" th:field="*{flavorNotes}" value="Orange" id="orange">
+        </div>
+        <div>
+          <label for="blueberry">Blueberry</label>
+          <input type="checkbox" th:field="*{flavorNotes}" value="Blueberry" id="blueberry">
+        </div>
+        <div>
+          <label for="pineapple">Pineapple</label>
+          <input type="checkbox" th:field="*{flavorNotes}" value="Pineapple" id="pineapple">
+        </div>
       </div>
       <div>
         <label for="brewMethods">Brew Method:</label>
         <select id="brewMethods" th:field="*{brewMethod}">
-          <option value="" disabled selected>-- Please Select --</option>
+          <option th:if="${#fields.hasErrors('brewMethod') or coffeeExam.brewMethod == null}" value="" disabled selected>-- Please Select --</option>
           <option th:each="method : ${brewMethods}"
                   th:value="${method}"
-                  th:text="${method}"
-          ></option>
+                  th:text="${method}">
+          </option>
         </select>
       </div>
       <div>

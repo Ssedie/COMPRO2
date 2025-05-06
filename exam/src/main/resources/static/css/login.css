@@ -97,3 +97,8 @@ label {
     text-align: center;
     font-size: 0.95rem;
 }
+
+.input-error {
+    border-color: #d8000c;
+    background: #ffe6e6;
+}
