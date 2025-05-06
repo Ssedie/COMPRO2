@@ -1,9 +1,11 @@
 :root {
-    --primary-color: #2c3e8c;
-    --border-color: #3498db;
-    --danger-color: #e74c3c;
-    --warning-color: #21618c;
+    --primary-color: #8b5e3c;       /* Earthy brown */
+    --border-color: #a68a6d;        /* Clay/sandstone border */
+    --danger-color: #b24c3c;        /* Muted brick red */
+    --warning-color: #a3b18a;       /* Sage green */
     --main-font: "Roboto", sans-serif;
+    --background-color: #f3efe6;    /* Warm beige */
+    --surface-color: #fffdf8;       /* Soft off-white */
 }
 
 * {
@@ -12,7 +14,7 @@
 }
 
 body {
-    background: #f3f4f6;
+    background: var(--background-color);
     display: flex;
     justify-content: center;
     align-items: start;
@@ -22,9 +24,9 @@ body {
 }
 
 .form-container {
-    background: #ffffff;
+    background: var(--surface-color);
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     padding: 30px 40px;
     width: 100%;
     max-width: 600px;
@@ -52,6 +54,7 @@ select {
     border: 1px solid var(--border-color);
     margin-bottom: 16px;
     font-size: 14px;
+    background-color: #f9f7f3;
 }
 
 input[type="checkbox"] {
@@ -73,6 +76,7 @@ button {
 
 button:hover {
     background-color: var(--warning-color);
+    color: #2e2e2e;
 }
 
 a {
@@ -87,10 +91,11 @@ a {
     border-radius: 6px;
     transition: all 0.2s;
     font-weight: 600;
+    background-color: transparent;
 }
 
 a:hover {
-    background-color: #f9fafb;
+    background-color: #f5f2eb;
 }
 
 .error {

@@ -1,72 +1,117 @@
-/* Edit Coffee Page Styles */
-h1 {
-    font-size: 2rem;
+:root {
+    --primary-color: #8b5e3c;       /* Earthy brown */
+    --border-color: #a68a6d;        /* Clay/sandstone border */
+    --danger-color: #b24c3c;        /* Muted brick red */
+    --accent-color: #a3b18a;        /* Sage green */
+    --main-font: "Roboto", sans-serif;
+    --background-color: #f3efe6;    /* Warm beige */
+    --surface-color: #fffdf8;       /* Soft off-white */
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--main-font);
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+    padding-top: 80px;
     color: var(--primary-color);
-    margin-bottom: 20px;
 }
 
 .form-container {
-    background-color: #FFF;
+    background: var(--surface-color);
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 800px;
-    margin: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    padding: 30px 40px;
+    width: 100%;
+    max-width: 600px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 24px;
+    color: var(--primary-color);
 }
 
 label {
-    font-weight: bold;
-    color: var(--primary-color);
+    display: block;
     margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--primary-color);
     font-size: 1rem;
 }
 
-input, select {
+div > label{
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+select {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
     margin-bottom: 18px;
     font-size: 1rem;
-    background-color: #F9F9F9;
-    transition: border 0.2s ease-in-out;
+    background-color: #f9f7f3;
+    transition: border-color 0.2s ease-in-out;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
     border-color: var(--accent-color);
     outline: none;
 }
 
-.error {
-    color: var(--accent-color);
-    font-size: 0.875rem;
-    margin-top: 5px;
+input[type="checkbox"] {
+    margin-right: 8px;
 }
 
 .flavor-notes-container {
+    margin-bottom: 16px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 20px;
+}
+
+.flavor-notes-container > div {
+    display: flex;
+    align-items: center;
 }
 
 .flavor-notes-container label {
-    font-weight: normal;
-    color: var(--neutral-color-dark);
     margin-right: 8px;
+    font-weight: normal;
+    color: var(--primary-color);
+}
+
+.error {
+    color: var(--danger-color);
+    font-size: 13px;
+    margin-top: -12px;
+    margin-bottom: 12px;
 }
 
 .action {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.button.cancel {
-    background-color: #e74c3c;
-}
-
-.button.cancel:hover {
-    background-color: #c0392b;
+    margin-top: 24px;
+    gap: 12px;
 }
 
 button {
@@ -78,9 +123,37 @@ button {
     cursor: pointer;
     font-weight: 600;
     width: 100%;
-    transition: background-color var(--transition-speed);
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: var(--accent-color);
+    color: #2e2e2e;
+}
+
+.button.cancel {
+    background-color: var(--danger-color);
+}
+
+.button.cancel:hover {
+    background-color: #943727;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    color: var(--primary-color);
+    text-decoration: none;
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+a:hover {
+    background-color: #f5f2eb;
 }

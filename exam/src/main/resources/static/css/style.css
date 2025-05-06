@@ -1,4 +1,14 @@
-/* Index and New Coffee Page Styles */
+:root {
+    --primary-color: #8b5e3c;         /* Warm earthy brown */
+    --accent-color: #a3b18a;          /* Sage green */
+    --border-color: #a68a6d;          /* Clay tan */
+    --highlight-color: #e6ccb2;       /* Warm sand */
+    --neutral-color-light: #f3efe6;   /* Light parchment */
+    --neutral-color-dark: #3a2e25;    /* Deep soil */
+    --main-font: "Roboto", sans-serif;
+    --transition-speed: 0.2s ease-in-out;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -31,7 +41,7 @@ main {
 }
 
 .logout-container a {
-    background-color: #e74c3c;
+    background-color: #b24c3c; /* Earthy red */
     padding: 10px 15px;
     border-radius: 8px;
     color: white;
@@ -41,7 +51,7 @@ main {
 }
 
 .logout-container a:hover {
-    background-color: #c0392b;
+    background-color: #943727;
 }
 
 .top-bar a {
@@ -56,6 +66,7 @@ main {
 
 .top-bar a:hover {
     background-color: var(--accent-color);
+    color: #2e2e2e;
 }
 
 .top-bar form {
@@ -68,6 +79,8 @@ main {
     border-radius: 8px;
     border: 1px solid var(--border-color);
     margin-right: 10px;
+    background-color: #f9f7f3;
+    color: var(--neutral-color-dark);
 }
 
 .top-bar button {
@@ -83,6 +96,7 @@ main {
 
 .top-bar button:hover {
     background-color: var(--accent-color);
+    color: #2e2e2e;
 }
 
 /* Table */
@@ -95,16 +109,16 @@ table {
 th, td {
     padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #dcd2c0;
 }
 
 th {
-    background-color: #f1f1f1;
+    background-color: #f2ebe3;
     color: var(--primary-color);
 }
 
 tr:hover {
-    background-color: #f9f9f9;
+    background-color: #f8f5f0;
 }
 
 td a {
@@ -118,4 +132,5 @@ td a {
 
 td a:hover {
     background-color: var(--highlight-color);
+    color: #2e2e2e;
 }

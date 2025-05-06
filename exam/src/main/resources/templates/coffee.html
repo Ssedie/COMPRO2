@@ -13,7 +13,6 @@
         <img th:if="${coffeeExam.coffeePicture != null}"
              th:src="@{'/data/coffee_pictures/' + ${coffeeExam.coffeePicture}}"
              alt="Profile Picture">
-        <p th:text="'Image File: ' + ${coffeeExam.coffeePicture}"></p>
 
         <!-- If no picture, fallback to default -->
         <img th:if="${coffeeExam.coffeePicture == null}"

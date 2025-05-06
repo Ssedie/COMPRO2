@@ -6,8 +6,9 @@
 
 </head>
 <body>
-<h1 th:text="'Edit ' + ${coffeeExam.name}"></h1>
+
 <div class="form-container">
+  <h1 th:text="'Edit ' + ${coffeeExam.name}"></h1>
   <form th:action="@{/update}" method="post" th:object="${coffeeExam}">
     <input type="hidden" th:field="*{id}"/>
 
@@ -100,7 +101,7 @@
     </div>
 
     <div class="action">
-      <a th:href="@{/}" class="button cancel">Cancel</a>
+      <a th:href="@{/}" class="button-cancel">Cancel</a>
       <button>Update Coffee</button>
       <a href="/">Back to List</a>
     </div>
