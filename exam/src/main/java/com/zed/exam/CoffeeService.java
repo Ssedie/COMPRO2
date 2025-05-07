@@ -32,18 +32,20 @@ public class CoffeeService {
 
     public List<CoffeeExam> searchCoffee(String keyword){
         if(keyword.trim().isEmpty()){
-            return new ArrayList<>(coffeeExamList);
+            return new ArrayList<>(coffeeExamList);  // Return all if no keyword is provided
         }
 
-        return coffeeExamList.stream().filter(s ->
-                s.getName() != null && s.getName().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getType() != null && s.getType().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getSize() != null && s.getSize().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getBrewMethod() != null && s.getBrewMethod().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getFlavorNotes() != null && s.getFlavorNotes().contains(keyword.toLowerCase())
-                        || s.getRoastLevel() != null && s.getRoastLevel().toLowerCase().contains(keyword.toLowerCase())
-                        || s.getOrigin() != null && s.getOrigin().toLowerCase().contains(keyword.toLowerCase())
-        ).collect(Collectors.toList());
+        String searchKeyword = keyword.toLowerCase();  // Convert the search keyword to lowercase once
+
+        return coffeeExamList.stream().filter(s -> {
+            return (s.getName() != null && s.getName().toLowerCase().contains(searchKeyword)) ||
+                    (s.getType() != null && s.getType().toLowerCase().contains(searchKeyword)) ||
+                    (s.getSize() != null && s.getSize().toLowerCase().contains(searchKeyword)) ||
+                    (s.getBrewMethod() != null && s.getBrewMethod().toLowerCase().contains(searchKeyword)) ||
+                    (s.getFlavorNotes() != null && s.getFlavorNotes().toLowerCase().contains(searchKeyword)) ||
+                    (s.getRoastLevel() != null && s.getRoastLevel().toLowerCase().contains(searchKeyword)) ||
+                    (s.getOrigin() != null && s.getOrigin().toLowerCase().contains(searchKeyword));
+        }).collect(Collectors.toList());
     }
 
     public CoffeeExam getCoffee(int id){
@@ -82,7 +84,7 @@ public class CoffeeService {
             //write the content of the arraylist into csv
             System.out.println("Writing to file");
             for(CoffeeExam s : coffeeExamList){
-                String line = s.getId() + ","
+                bw.write(s.getId() + ","
                         + s.getName() + ","
                         + s.getType() + ","
                         + s.getSize() + ","
@@ -92,8 +94,9 @@ public class CoffeeService {
                         + s.isDecaf() + ","
                         + s.getStock() + ","
                         +  s.getBrewMethod() + ","
-                        + (s.getFlavorNotes() != null ? s.getFlavorNotes() : "");
-                bw.write(line);
+                        + (s.getFlavorNotes() != null ? s.getFlavorNotes().replace(",", " ") : "") + ","
+                        + s.getCoffeePicture()
+                );
                 bw.newLine();
             }
             System.out.println("Done writing to file");
@@ -114,36 +117,30 @@ public class CoffeeService {
 
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
             String line;
-            while((line = br.readLine()) != null){
-                String[] data = line.split(",");
+            while((line = br.readLine()) != null) {
+                String[] data = line.split(",", -1);
 
-                if(data.length < 10){
-                    continue;
-                }
+                if (data.length >= 11) {
+                    CoffeeExam c = new CoffeeExam();
+                    c.setId(Integer.parseInt(data[0]));
+                    c.setName(data[1]);
+                    c.setType(data[2]);
+                    c.setSize(data[3]);
+                    c.setPrice(Double.parseDouble(data[4]));
+                    c.setRoastLevel(data[5]);
+                    c.setOrigin(data[6]);
+                    c.setDecaf(Boolean.parseBoolean(data[7]));
+                    c.setStock(Integer.parseInt(data[8]));
+                    c.setBrewMethod(data[9]);
+                    c.setFlavorNotes(data[10].replace(" ", ","));
+                    c.setCoffeePicture(data.length > 11 ? data[11] : "");
 
-                CoffeeExam c = new CoffeeExam();
-                c.setId(Integer.parseInt(data[0]));
-                c.setName(data[1]);
-                c.setType(data[2]);
-                c.setSize(data[3]);
-                c.setPrice(Double.parseDouble(data[4]));
-                c.setRoastLevel(data[5]);
-                c.setOrigin(data[6]);
-                c.setDecaf(Boolean.parseBoolean(data[7]));
-                c.setStock(Integer.parseInt(data[8]));
-                c.setBrewMethod(data[9]);
+                    //add coffee to the list
+                    coffeeExamList.add(c);
 
-                if(data.length >= 11){
-                    c.setFlavorNotes(data[10]);
-                }else{
-                    c.setFlavorNotes("");
-                }
-
-                //add coffee to the list
-                coffeeExamList.add(c);
-
-                if (c.getId() > currentMaxId) {
-                    currentMaxId = c.getId();
+                    if (c.getId() > currentMaxId) {
+                        currentMaxId = c.getId();
+                    }
                 }
             }
             System.out.println("Done reading from file");
