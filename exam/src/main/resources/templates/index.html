@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" th:replace="~{layout/main :: html(
+    content=~{::main},
+    docTitle=~{::title},
+    customCss=~{::link}
+)}">
 <head>
     <meta charset="UTF-8">
     <title>Coffee</title>
@@ -10,10 +14,6 @@
 <main>
     <div class="top-bar">
         <h1>Coffee List</h1>
-
-        <div class="logout-container">
-            <a href="/logout" class="logout-btn">Logout</a>
-        </div>
 
         <a href="/add">Add New Coffee</a>
 

@@ -40,6 +40,7 @@ public class CoffeeController {
         }
 
         model.addAttribute("coffee", coffeeService.searchCoffee(search));
+        model.addAttribute("activeMenu", "home");
 
         return "index";
     }
