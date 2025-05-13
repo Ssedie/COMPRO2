@@ -97,6 +97,7 @@ public class CoffeeService {
                         + (s.getFlavorNotes() != null ? s.getFlavorNotes().replace(",", " ") : "") + ","
                         + s.getCoffeePicture()
                 );
+                System.out.println(s.getCoffeePicture());
                 bw.newLine();
             }
             System.out.println("Done writing to file");

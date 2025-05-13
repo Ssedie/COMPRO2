@@ -11,7 +11,7 @@
     <div class="profile">
         <!-- If student has uploaded a profile picture -->
         <img th:if="${coffeeExam.coffeePicture != null}"
-             th:src="@{'/data/coffee_pictures/' + ${coffeeExam.coffeePicture}}"
+             th:src="@{'/' + ${coffeeExam.coffeePicture}}"
              alt="Profile Picture">
 
         <!-- If no picture, fallback to default -->

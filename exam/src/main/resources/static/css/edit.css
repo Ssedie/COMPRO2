@@ -57,6 +57,14 @@ div > label{
     font-size: 1rem;
 }
 
+div.flavor-notes-container > label{
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
 input[type="text"],
 input[type="number"],
 input[type="file"],

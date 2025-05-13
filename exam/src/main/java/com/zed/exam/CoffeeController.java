@@ -122,10 +122,12 @@ public class CoffeeController {
             try {
                 coffeePicture.transferTo(new File(uploadFolder.getAbsolutePath() + File.separator + fileName));
                 coffeeExam.setCoffeePicture(fileName);
+                System.out.println(coffeeExam.getCoffeePicture());
             } catch (IOException e) {
                 System.out.println("File upload error: " + e.getMessage());
             }
         }
+
 
         coffeeService.addCoffee(coffeeExam);
         return "redirect:/";
