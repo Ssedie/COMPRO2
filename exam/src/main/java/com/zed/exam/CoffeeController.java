@@ -24,6 +24,11 @@ public class CoffeeController {
     CoffeeService coffeeService;
 
 
+    @GetMapping("/home")
+    public String home(Model model) {
+        return "layout/main";
+    }
+
     /**
      *
      * @param search used to search for the variable that is wanted by the user

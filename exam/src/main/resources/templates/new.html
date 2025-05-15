@@ -106,10 +106,12 @@
         <label for="imageFile">Profile Picture:</label>
         <input type="file" id="imageFile" name="imageFile"/>
       </div>
-      <button type="submit">Save</button>
+      <div class="action">
+        <a th:href="@{/}" class="button cancel">Cancel</a>
+        <button>Save</button>
+      </div>
     </form>
     <br>
-    <a href="/">Back to List</a>
   </div>
   </body>
   </html>

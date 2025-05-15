@@ -121,3 +121,18 @@ a:hover {
 .flavor-notes-container label {
     margin-right: 8px;
 }
+
+div.action{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button.cancel {
+    background: var(--primary);
+    color: var(--danger-color);
+    border: var(--warning-color) 2px solid;
+}
+
+.button.cancel:hover {
+    background: var(--background-color);
+}
