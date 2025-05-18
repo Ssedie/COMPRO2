@@ -82,6 +82,8 @@ public class CoffeeController {
 
         CoffeeExam coffeeExam = new CoffeeExam();
         model.addAttribute("coffeeExam", coffeeExam);
+        model.addAttribute("activeMenu", "new");
+
         return "new";
     }
 

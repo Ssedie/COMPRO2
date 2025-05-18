@@ -6,12 +6,12 @@
 
 }
 :root{
-    --primary: #ffffff;
-    --secondary: #000000;
-    --tertiary: #FAFBFF;
-    --accent: #5932EA;
-    --menu-text: #9197b3;
-    --menu-hover: #f0f0f0;
+    --primary: #f3efe6;
+    --secondary: #3a2e25;
+    --tertiary: #f9f7f3;
+    --accent: #8b5e3c;
+    --menu-text: #a68a6d;
+    --menu-hover: #e6ccb2;
     --font: "Poppins", sans-serif;
 }
 
@@ -23,6 +23,7 @@ body{
     height: 100vh;
     width: 100vw;
     transition: all .3s ease;
+    background-color: var(--tertiary);
 }
 
 aside{

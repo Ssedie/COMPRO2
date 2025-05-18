@@ -16,9 +16,9 @@
         </div>
         <div class="menu">
             <ul>
-                <li th:replace="components/menu_item :: menuItem('/','Dashboard' , ${activeMenu ?: (activeMenu == 'home' ? 'active' : '')})"></li>
-                <li th:replace="components/menu_item :: menuItem('/add','Add Coffee', ${activeMenu ?: (activeMenu == 'new' ? 'active' : '')})"></li>
-                <li th:replace="components/menu_item :: menuItem('/edit','Edit Coffee', ${activeMenu ?: (activeMenu == 'edit' ? 'active' : '')})"></li>
+                <li th:replace="components/menu_item :: menuItem('/','Dashboard' , ${activeMenu == 'home' ? 'active' : ''})"></li>
+                <li th:replace="components/menu_item :: menuItem('/add','Add Coffee', ${activeMenu == 'new' ? 'active' : ''})"></li>
+                <li th:replace="components/menu_item :: menuItem('/catalog','Coffee Catalog', ${activeMenu == 'catalog' ? 'active' : ''})"></li>
             </ul>
         </div>
     </div>
