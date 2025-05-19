@@ -57,6 +57,7 @@ public class CoffeeController {
             return "redirect:/login";
         }
         model.addAttribute("coffee", coffeeService.getCoffeeExamList());
+        model.addAttribute("activeMenu", "catalog");
         return "catalog";
     }
 
