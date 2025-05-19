@@ -50,6 +50,16 @@ public class CoffeeController {
         return "index";
     }
 
+    @GetMapping("/catalog")
+    public String catalog(Model model, HttpSession session) {
+        AppUser user = (AppUser) session.getAttribute("user");
+        if(user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("coffee", coffeeService.getCoffeeExamList());
+        return "catalog";
+    }
+
     /**
      *
      * @param id - (int) id of the coffee

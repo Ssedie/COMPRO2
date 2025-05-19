@@ -16,14 +16,11 @@
     font-family: var(--main-font);
 }
 
-body {
+main {
     background-color: var(--neutral-color-light);
     color: var(--neutral-color-dark);
     padding: 40px 20px;
-}
-
-main {
-    max-width: 1200px;
+    min-width: 100%;
     margin: 0 auto;
 }
 
@@ -38,20 +35,6 @@ main {
 .top-bar h1 {
     font-size: 2rem;
     color: var(--primary-color);
-}
-
-.logout-container a {
-    background-color: #b24c3c; /* Earthy red */
-    padding: 10px 15px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color var(--transition-speed);
-}
-
-.logout-container a:hover {
-    background-color: #943727;
 }
 
 .top-bar a {

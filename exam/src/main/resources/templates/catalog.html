@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Coffee Catalog</title>
+    <link rel="stylesheet" href="/css/menu.css">
 </head>
 <body>
+
+    <main class="catalog-container">
+        <h1 class="catalog-title">Our Coffee Selection</h1>
+        <div class="card-grid">
+            <div th:each="coffee : ${coffee}">
+                <div th:replace="components/coffee_card :: coffeePo(coffee=${coffee})"></div>
+            </div>
+        </div>
+    </main>
 
 </body>
 </html>
