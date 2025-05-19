@@ -13,23 +13,17 @@
     font-family: var(--main-font);
 }
 
-body {
-    background: var(--background-color);
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    min-height: 100vh;
-    padding-top: 80px;
-    margin: 0;
-}
-
 .form-container {
     background: var(--surface-color);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     padding: 30px 40px;
-    width: 100%;
-    max-width: 600px;
+    width: 85vw;
+    height: 90vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 h1 {
