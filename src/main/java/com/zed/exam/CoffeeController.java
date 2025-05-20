@@ -195,6 +195,7 @@ public class CoffeeController {
 
         CoffeeExam c = coffeeService.getCoffee(coffeeExam.getId());
         if(c != null){
+            coffeeExam.setCoffeePicture(c.getCoffeePicture());
             coffeeService.updateCoffee(coffeeExam.getId(), coffeeExam);
         }
         return "redirect:/";
