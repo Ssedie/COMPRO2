@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #8b5e3c;         /* Warm earthy brown */
-    --accent-color: #a3b18a;          /* Sage green */
-    --border-color: #a68a6d;          /* Clay tan */
-    --highlight-color: #e6ccb2;       /* Warm sand */
-    --neutral-color-light: #f3efe6;   /* Light parchment */
-    --neutral-color-dark: #3a2e25;    /* Deep soil */
+    --primary-color: #8b5e3c;
+    --accent-color: #a3b18a;
+    --border-color: #a68a6d;
+    --highlight-color: #e6ccb2;
+    --neutral-color-light: #f3efe6;
+    --neutral-color-dark: #3a2e25;
     --main-font: "Roboto", sans-serif;
     --transition-speed: 0.2s ease-in-out;
 }
@@ -20,8 +20,7 @@ main {
     background-color: var(--neutral-color-light);
     color: var(--neutral-color-dark);
     padding: 40px 20px;
-    min-width: 100%;
-    margin: 0 auto;
+    width: 100%;
 }
 
 /* Top Bar */
@@ -87,16 +86,33 @@ main {
     color: #2e2e2e;
 }
 
-/* Table */
-table {
+/* Table Scroll Container */
+.table-container {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-    table-layout: auto;
-    word-wrap: break-word;
     overflow-x: auto;
 }
 
+.table-container table {
+    min-width: 800px; /* Force horizontal scroll on small screens */
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Optional Scrollbar Styling */
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: var(--neutral-color-light);
+}
+
+/* Table Styling */
 th, td {
     padding: 12px;
     text-align: left;
@@ -127,7 +143,7 @@ td a:hover {
     color: #2e2e2e;
 }
 
-/* Responsive Design */
+/* Responsive Adjustments */
 @media (max-width: 1024px) {
     .top-bar {
         flex-direction: column;
@@ -162,12 +178,6 @@ td a:hover {
     td a {
         display: block;
         margin-bottom: 6px;
-    }
-
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
     }
 }
 
