@@ -30,6 +30,8 @@ main {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .top-bar h1 {
@@ -55,15 +57,18 @@ main {
 .top-bar form {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .top-bar input {
     padding: 8px 12px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    margin-right: 10px;
     background-color: #f9f7f3;
     color: var(--neutral-color-dark);
+    flex: 1;
+    min-width: 200px;
 }
 
 .top-bar button {
@@ -87,6 +92,9 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 30px;
+    table-layout: auto;
+    word-wrap: break-word;
+    overflow-x: auto;
 }
 
 th, td {
@@ -111,9 +119,74 @@ td a {
     padding: 6px 10px;
     border-radius: 8px;
     transition: background-color var(--transition-speed);
+    display: inline-block;
 }
 
 td a:hover {
     background-color: var(--highlight-color);
     color: #2e2e2e;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .top-bar h1 {
+        font-size: 1.75rem;
+    }
+
+    .top-bar form {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .top-bar input,
+    .top-bar button {
+        width: 100%;
+    }
+
+    table, th, td {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-bar h1 {
+        font-size: 1.5rem;
+    }
+
+    td a {
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 20px 10px;
+    }
+
+    .top-bar h1 {
+        font-size: 1.25rem;
+    }
+
+    .top-bar a,
+    .top-bar button {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    th, td {
+        padding: 10px 8px;
+    }
 }
