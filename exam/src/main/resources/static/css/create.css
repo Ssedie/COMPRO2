@@ -1,31 +1,48 @@
 :root {
-    --primary-color: #8b5e3c;       /* Earthy brown */
-    --border-color: #a68a6d;        /* Clay/sandstone border */
-    --danger-color: #b24c3c;        /* Muted brick red */
-    --warning-color: #a3b18a;       /* Sage green */
+    --primary-color: #8b5e3c;
+    --border-color: #a68a6d;
+    --danger-color: #b24c3c;
+    --warning-color: #a3b18a;
     --main-font: "Roboto", sans-serif;
-    --background-color: #f3efe6;    /* Warm beige */
-    --surface-color: #fffdf8;       /* Soft off-white */
+    --background-color: #f3efe6;
+    --surface-color: #fffdf8;
 }
 
 * {
     box-sizing: border-box;
     font-family: var(--main-font);
+    margin: 0;
+    padding: 0;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--background-color);
+}
+
+/* Layout */
+.main-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Form container */
 .form-container {
+    flex-grow: 1;
     background: var(--surface-color);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     padding: 30px 40px;
-    width: 85vw;
-    height: 90vh;
-    margin: auto;
+    overflow-y: auto;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
+/* Typography */
 h1 {
     text-align: center;
     color: var(--primary-color);
@@ -39,6 +56,7 @@ label {
     color: var(--primary-color);
 }
 
+/* Inputs */
 input[type="text"],
 input[type="number"],
 select {
@@ -55,6 +73,7 @@ input[type="checkbox"] {
     margin-right: 8px;
 }
 
+/* Buttons */
 button {
     background-color: var(--primary-color);
     color: white;
@@ -73,6 +92,7 @@ button:hover {
     color: #2e2e2e;
 }
 
+/* Links */
 a {
     display: inline-block;
     margin-top: 20px;
@@ -112,21 +132,64 @@ a:hover {
     align-items: center;
 }
 
-.flavor-notes-container label {
-    margin-right: 8px;
-}
-
-div.action{
+div.action {
     display: flex;
     justify-content: space-between;
 }
 
 .button.cancel {
-    background: var(--primary);
+    background: transparent;
     color: var(--danger-color);
-    border: var(--warning-color) 2px solid;
+    border: 2px solid var(--warning-color);
 }
 
 .button.cancel:hover {
     background: var(--background-color);
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1024px) {
+    .main-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .flavor-notes-container {
+        grid-template-columns: 1fr;
+    }
+
+    button,
+    a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 16px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        font-size: 13px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
 }
