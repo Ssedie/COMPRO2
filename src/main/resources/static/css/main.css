@@ -12,18 +12,19 @@
     --accent: #8b5e3c;
     --menu-text: #a68a6d;
     --menu-hover: #e6ccb2;
-    --font: "Poppins", sans-serif;
+    --font: "Roboto", sans-serif;
 }
 
 body{
     font-family: var(--font);
     display: grid;
     grid-template-columns: 306px 1fr;
+    grid-template-rows: 100vh;
     grid-template-areas: "sidebar main";
     height: 100vh;
     width: 100vw;
     transition: all .3s ease;
-    background-color: var(--tertiary);
+    background-color: var(--accent);
     overflow: hidden;
 }
 
@@ -37,14 +38,17 @@ html,body{
 aside{
     /* grid-column: 1 / 2; */
     grid-area: sidebar;
-    /*background-color: var(--primary);*/
+    background-color: var(--primary);
     padding: 36px 28px 78px;
+    border-radius: 20px;
+    margin: 20px auto;
     display: flex;
-    background-color: antiquewhite;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 10;
-    position: relative;
+    position: sticky;
+    overflow: hidden;
+    top: 0;
+    height: 95%;
 }
 
 .sidebar-content{
@@ -119,22 +123,42 @@ aside{
     display: flex;
     align-items: center;
     gap: 12px;
+    white-space: nowrap;
+    flex-wrap:nowrap;
 }
 
 
 .user-profile h1{
+    margin: 0;
     font-size: 16px;
     font-weight: 500;
-    line-height: 14px;
+    line-height: 1.2;
+    color: var(--secondary);
 }
 .user-profile span{
+    margin:2px 0 0 0;
     font-size: 12px;
-    color: var(--menu-text)
+    color: var(--menu-text);
+    line-height:1.2;
 }
+
+.user-profile div{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.user-profile h1, .user-profile span{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .user-profile img{
     width: 42px;
     height: 42px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 

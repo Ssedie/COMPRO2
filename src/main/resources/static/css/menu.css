@@ -3,7 +3,8 @@
     --color-accent: #855E42;     /* Warm tan */
     --color-text: #2D2D2D;       /* Deep soil text */
     --color-surface: #FAF7F2;    /* Light parchment */
-    --color-border: #E0D6C4;     /* Sand border */
+    --color-border: #E0D6C4;
+    --background: #a3b18a;/* Sand border */
     --border-radius: 0.5rem;
     --transition: all 0.3s ease-in-out;
 }
@@ -11,10 +12,14 @@
 /* Coffee Catalog Layout */
 .catalog-container {
     max-width: 100%;
-    width: 100%;
-    padding: 2rem 1rem;
-    margin: 0 auto;
     box-sizing: border-box;
+    border-radius: 20px;
+    background-color: var(--neutral-color-light);
+    box-shadow: 0 1px 15px 4px rgba(0, 0, 0, 0.36);
+    color: var(--neutral-color-dark);
+    padding: 40px 20px;
+    width: 90%;
+    margin: 40px auto;
 }
 
 h1{
@@ -33,6 +38,10 @@ h1{
 /*    text-align: left;*/
 /*}*/
 
+h1.catalog-title{
+    color: var(--color-accent);
+}
+
 /* Coffee Grid */
 .card-grid {
     display: grid;
@@ -44,7 +53,7 @@ h1{
 
 /* Individual Coffee Card */
 .card-coffee {
-    background: var(--color-surface);
+    background: var(--background);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     color: var(--color-text);
@@ -74,13 +83,13 @@ h1{
 /* Coffee Name and Price */
 .card-coffee h3 {
     font-size: 1.3rem;
-    color: var(--color-primary);
+    color: var(--color-border);
     margin-bottom: 0.5rem;
 }
 
 .card-coffee p {
     font-size: 1rem;
-    color: var(--color-accent);
+    color: var(--color-border);
     margin: 0;
 }
 

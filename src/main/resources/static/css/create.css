@@ -18,7 +18,11 @@
 html, body {
     height: 100%;
     overflow: hidden;
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
+}
+
+main{
+    background-color: var(--primary-color);
 }
 
 /* Layout */
@@ -32,18 +36,18 @@ html, body {
 .form-container {
     flex-grow: 1;
     background: var(--surface-color);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 1px 15px 4px rgba(0, 0, 0, 0.36);
     padding: 30px 40px;
     overflow-y: auto;
-    height: 100vh;
+    height:100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
 /* Typography */
-h1 {
+h1.title-coffee {
     text-align: center;
     color: var(--primary-color);
     margin-bottom: 24px;

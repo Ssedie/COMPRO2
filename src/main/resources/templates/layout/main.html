@@ -19,14 +19,14 @@
                     <li th:replace="components/menu_item :: menuItem('/','Home' , ${activeMenu == 'home' ? 'active' : ''})"></li>
                     <li th:replace="components/menu_item :: menuItem('/add','Add Coffee', ${activeMenu == 'new' ? 'active' : ''})"></li>
                     <li th:replace="components/menu_item :: menuItem('/catalog','Coffee Menu', ${activeMenu == 'catalog' ? 'active' : ''})"></li>
-                    <li th:replace="components/menu_item :: menuItem('/login', 'Logout', ${activeMenu == 'logout' ? 'active' : ''})"></li>
+                    <li th:replace="components/menu_item :: menuItem('/logout', 'Logout', ${activeMenu == 'logout' ? 'active' : ''})"></li>
                 </ul>
             </div>
         </div>
         <div class="user-profile">
             <img src="/images/avatar.png" alt="Zedric-profile" />
             <div>
-                <h1>Evano</h1>
+                <h1>Zedric</h1>
                 <span>Project Manager</span>
             </div>
         </div>

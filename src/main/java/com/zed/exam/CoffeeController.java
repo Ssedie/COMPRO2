@@ -41,7 +41,7 @@ public class CoffeeController {
 //        model.addAttribute("coffees", coffeeList);
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
 
         model.addAttribute("coffee", coffeeService.searchCoffee(search));
@@ -54,7 +54,7 @@ public class CoffeeController {
     public String catalog(Model model, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
         model.addAttribute("coffee", coffeeService.getCoffeeExamList());
         model.addAttribute("activeMenu", "catalog");
@@ -70,7 +70,7 @@ public class CoffeeController {
     public String deleteCoffee(@RequestParam int id, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
         coffeeService.deleteCoffeeExam(id);
         return "redirect:/";
@@ -84,7 +84,7 @@ public class CoffeeController {
     public String add(Model model, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
         model.addAttribute("types", new String[]{"Frappe", "Espresso", "Americano", "Latte", "Cappuccino", "Mocha", "Flat White", "Iced Coffee"});
         model.addAttribute("sizes", new String[]{"Small", "Medium", "Large"});
@@ -108,7 +108,7 @@ public class CoffeeController {
     public String save(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, @RequestParam(value = "imageFile") MultipartFile coffeePicture, Model model, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
 
         if (bindingResult.hasErrors()) {
@@ -162,7 +162,7 @@ public class CoffeeController {
     public String edit(@RequestParam int id, Model model, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
         CoffeeExam c = coffeeService.getCoffee(id);
         if(c != null){
@@ -181,7 +181,7 @@ public class CoffeeController {
     public String update(@ModelAttribute("coffeeExam") @Valid CoffeeExam coffeeExam, BindingResult bindingResult, Model model, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
 
         if (bindingResult.hasErrors()) {
@@ -205,7 +205,7 @@ public class CoffeeController {
     public String view(@PathVariable int id, Model model, HttpSession session) {
         AppUser user = (AppUser) session.getAttribute("user");
         if(user == null) {
-            return "redirect:/login";
+            return "redirect:/logout";
         }
 
         CoffeeExam c = coffeeService.getCoffee(id);
