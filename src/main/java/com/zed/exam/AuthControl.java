@@ -27,7 +27,7 @@ public class AuthControl {
     @PostMapping("/login")
     public String login(@ModelAttribute("user") @Valid AppUser formUser, BindingResult bindingResult, HttpSession session, Model model){
         if(bindingResult.hasErrors()){
-            return "login";
+            return "/login";
         }
 
         //authenticate
@@ -41,7 +41,7 @@ public class AuthControl {
         }
 
 
-        return "index";
+        return "login";
 
     }
 
